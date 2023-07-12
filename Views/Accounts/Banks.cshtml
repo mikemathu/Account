@@ -1,0 +1,231 @@
+﻿<div class=row>
+    <div class="panel panel-default">
+        <div class=panel-heading>
+            <h6 class=panel-title>Bank Details</h6>
+        </div>
+        <div class=panel-body>
+            <form method=post id=BankForm>
+                <input id=BankID hidden>
+                <div class=row>
+                    <div class=col-md-4>
+                        <div class=form-group>
+                            <label>
+                                <small>Name</small>
+                            </label>
+                            <input id=Name class="form-control input-sm" required>
+                        </div>
+                        <div class=form-group>
+                            <label>
+                                <small>Bank Code</small>
+                            </label>
+                            <input id=BankCode class="form-control input-sm">
+                        </div>
+                    </div>
+                    <div class=col-md-4>
+                        <div class=form-group>
+                            <label>
+                                <small>Account No</small>
+                            </label>
+                            <input id=AccountNo class="form-control input-sm" required>
+                        </div>
+                        <div class=form-group>
+                            <label>
+                                <small>Branch</small>
+                            </label>
+                            <input id=Branch class="form-control input-sm">
+                        </div>
+                    </div>
+                    <div class=col-md-4>
+                        <div class=form-group>
+                            <label>
+                                <small>Branch Code</small>
+                            </label>
+                            <input id=BranchCode class="form-control input-sm">
+                        </div>
+                        <div id=updatebank hidden>
+                            <div class="btn-group pull-right">
+                                <button id=btnupdatebank class="btn btn-primary btn-sm ladda-button" data-style=expand-right data-size=s>Update</button>
+                                <a id=btnCreateNewBank class="btn btn-primary btn-sm">New</a>
+                            </div>
+                        </div>
+                        <div id=addbank>
+                            <button id=btnaddbank class="btn btn-primary pull-right ladda-button" data-style=expand-right data-size=s>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeqgUCaEukiCsukLJfQ6cNR6-SnCMWgNeLHCDJJEbCIy9eEw0wQ7zFxM57VDxRCfwPMG0c9053NwM3kUyUZmzICa8qpLmNYaYSfnYU0JjWKI0647JqisrTfqmnZaKl5kZDzGAaxTK3FACFw41axHhKx5KF9A0kdaHAIa_P4xIKF5Jw>
+            </form>
+        </div>
+        <div class=panel-heading>
+            <h6 class=panel-title>View: Banks</h6>
+        </div>
+        <div class=table-responsive id=no-more-tables>
+            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=bankstable>
+                <thead class=cf>
+                    <tr>
+                        <th>
+                            <strong>Bank ID</strong>
+                        <th>
+                            <strong>Name</strong>
+                        <th>
+                            <strong>Account No</strong>
+                        <th>
+                            <strong>Branch</strong>
+                <tbody>
+            </table>
+        </div>
+    </div>
+<div class=col-md-3></div>
+</div>
+
+
+<script src=" https://webapps1.chicago.gov/cdn/jQuery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script src="~/js/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/js/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+    $(document).ready(function () {
+            //alert("ready");
+           // $.validator.unobtrusive.parse($("#studentForm"));
+
+
+        function ReloadPage() {
+            LoadAllBanks()
+        }
+        function LoadAllBanks() {
+            var n = $("#BankForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("GET", "/Accounts/GetAllBranchBanks/", "", n).then(n => {
+                var i, t;
+                if (banksTable.clear().draw(),
+                    !$.isEmptyObject(n)) {
+                    for (i = "",
+                        t = 0; t < n.length; t++)
+                        i += '<tr id="' + n[t].bankID + '"><td data-title="Bank ID">' + n[t].bankID + '<\/td><td data-title="Name">' + n[t].name + '<\/td><td data-title="Account No">' + n[t].accountNo + '<\/td> <td data-title="Branch">' + n[t].branch + "<\/td><\/tr>";
+                    banksTable.rows.add($(i)).draw(!1)
+                }
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function GetBankDetails(n) {
+            var t = n
+                , i = $("#BankForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("POST", "/Accounts/GetBankDetails/", t, i).then(n => {
+                $("#BankID").val(n.bankID),
+                    $("#Name").val(n.name),
+                    $("#BankCode").val(n.bankCode),
+                    $("#AccountNo").val(n.accountNo),
+                    $("#Branch").val(n.branch),
+                    $("#BranchCode").val(n.branchCode),
+                    $("#addbank").hide(),
+                    $("#updatebank").show()
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function DeleteBank(n) {
+            var t = n
+                , i = $("#BankForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("POST", "/Accounts/DeleteBank/", t, i).then(() => {
+                Notify(!0, "Bank Deleted Successfully")
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        $(document).ready(function () {
+            banksTable.clear().draw();
+            $("#BankID").val("0");
+            ReloadPage()
+        });
+        var banksTable = $("#bankstable").DataTable({
+            drawCallback: function () {
+                $.contextMenu("destroy", `#${$(this).prop("id")} tbody tr td`);
+                $.contextMenu({
+                    selector: "#bankstable tbody tr td",
+                    trigger: "right",
+                    delay: 500,
+                    autoHide: !0,
+                    callback: function (n, t) {
+                        var i = t.$trigger[0].parentElement.id, r;
+                        switch (n) {
+                            case "select":
+                                GetBankDetails(i);
+                                break;
+                            case "delete":
+                                r = confirm("Are You Sure You Want To Delete The Selected Bank?");
+                                r === !0 && DeleteBank(i)
+                        }
+                    },
+                    items: {
+                        select: {
+                            name: "Select"
+                        },
+                        "delete": {
+                            name: "Delete"
+                        }
+                    }
+                })
+            },
+            lengthChange: !1,
+            buttons: ["excel", "csv", "pdf", "print"],
+            paging: !1,
+            searching: !0,
+            ordering: !0,
+            bInfo: !1,
+            scrollY: "250px",
+            sScrollX: "100%",
+            scrollX: !0
+        });
+        $(document).ready(function () {
+            banksTable.buttons().container().appendTo("#bankstable_wrapper .col-sm-6:eq(0)")
+        });
+        $("#BankForm").submit(function (n) {
+            var i, t;
+            n.preventDefault();
+            i = Number($("#BankID").val());
+            t = Ladda.create(document.querySelector("#btnaddbank"));
+            i > 0 && (t = Ladda.create(document.querySelector("#btnupdatebank")));
+            t.start();
+            t.isLoading();
+            t.setProgress(-1);
+            var r = {
+                BankID: i,
+                Name: $("#Name").val(),
+                BankCode: $("#BankCode").val(),
+                AccountNo: $("#AccountNo").val(),
+                Branch: $("#Branch").val(),
+                BranchCode: $("#BranchCode").val()
+            }
+                , u = $("#BankForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("POST", "/Accounts/CreateUpdateBank/", r, u).then(() => {
+                LoadAllBanks(),
+                    i > 0 ? Notify(!0, "Bank Updated Successfully") : (Notify(!0, "Bank Created Successfully"),
+                        $("#btnCreateNewBank").click()),
+                    t.stop()
+            }
+            ).catch(n => {
+                Notify(!1, n),
+                    t.stop()
+            }
+            )
+        });
+        $(document).ready(function () {
+            $("#btnCreateNewBank").click(function () {
+                $("#BankForm")[0].reset();
+                $("#BankID").val("0");
+                $("#updatebank").hide();
+                $("#addbank").show()
+            })
+        });
+
+
+
+});
+
+
+
+
+</script>

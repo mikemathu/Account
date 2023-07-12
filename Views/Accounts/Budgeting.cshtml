@@ -1,0 +1,143 @@
+﻿<div class=row>
+    <div class="panel panel-default">
+        <div class="panel-heading clearfix">
+            <h5 class=panel-title>
+                Budget No: <span class=text-info id=txtBillNo1></span>
+                <div class="btn-group btn-group-xs pull-right">
+                    <button class="btn btn-info dropdown-toggle" type=button data-toggle=dropdown aria-haspopup=true aria-expanded=false>
+                        Actions <span class=caret></span>
+                    </button>
+                    <ul class=dropdown-menu>
+                        <li>
+                            <a href=javascript:CreateBudget()>Create Budget</a>
+                        <li>
+                            <a href=javascript:EditBudget()>Edit Budget</a>
+                        <li>
+                            <a href=javascript:DeactivateBudget()>Deactivate Budget</a>
+                        <li>
+                            <a href=javascript:CreateAndCopyBudget()>Copy Budget To New</a>
+                        <li>
+                            <a href=javascript:ExportBudgetTemplate()>Export Budget Template</a>
+                        <li>
+                            <a href=javascript:ImportBudget()>Import Budget</a>
+                        <li role=separator class=divider>
+                        <li>
+                            <a href=javascript:BudgetSummary()>Budget Summary Report</a>
+                        <li>
+                            <a href=javascript:BudgetVsActual()>Budget vs Actual Report</a>
+                    </ul>
+                </div>
+            </h5>
+        </div>
+        <div class=panel-body>
+            <div class=row>
+                <div class="col-sm-4 content-left">
+                    <div class=row>
+                        <div class=col-md-12>
+                            <h5 class=panel-title>
+                                <u>
+                                    <strong>Budget Details</strong>
+                                </u>
+                            </h5>
+                        </div>
+                    </div>
+                    <br>
+                    <div class=row>
+                        <div class=col-sm-4>
+                            <label>
+                                <small>Budget No: </small>
+                            </label>
+                        </div>
+                        <div class=col-sm-8>
+                            <span class=text-info id=txtBudgetNo></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 content-left">
+                    <div class=row>
+                        <div class=col-sm-4>
+                            <label>
+                                <small>Budget Name: </small>
+                            </label>
+                        </div>
+                        <div class=col-sm-8>
+                            <span class=text-info id=txtBudgetName></span>
+                        </div>
+                    </div>
+                    <div class=row>
+                        <div class=col-sm-4>
+                            <label>
+                                <small>Fiscal Year: </small>
+                            </label>
+                        </div>
+                        <div class=col-sm-8>
+                            <span class=text-info id=txtFiscalYear></span>
+                        </div>
+                    </div>
+                    <div class=row>
+                        <div class=col-sm-4>
+                            <label>
+                                <small>Interval: </small>
+                            </label>
+                        </div>
+                        <div class=col-sm-8>
+                            <span class=text-info id=txtInterval></span>
+                        </div>
+                    </div>
+                </div>
+                <div class=col-sm-4>
+                    <div class=row>
+                        <div class=col-sm-4>
+                            <label>
+                                <small>Created On: </small>
+                            </label>
+                        </div>
+                        <div class=col-sm-8>
+                            <span class=text-info id=txtCreatedOn></span>
+                        </div>
+                    </div>
+                    <div class=row>
+                        <div class=col-sm-4>
+                            <label>
+                                <small>Last Updated: </small>
+                            </label>
+                        </div>
+                        <div class=col-sm-8>
+                            <span class=text-info id=txtUpdatedOn></span>
+                        </div>
+                    </div>
+                    <div class=row>
+                        <div class=col-sm-4>
+                            <label>
+                                <small>CreatedBy: </small>
+                            </label>
+                        </div>
+                        <div class=col-sm-8>
+                            <span class=text-info id=txtCreatedBy></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=panel-heading>
+            <h6 class=panel-title>View: Budgets</h6>
+        </div>
+        <div class=table-responsive id=no-more-tables>
+            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=budgetstable>
+                <thead>
+                    <tr>
+                        <th>
+                            <small>Name</small>
+                        <th>
+                            <small>Period</small>
+                        <th>
+                            <small>Created On</small>
+                        <th>
+                            <small>Last Update</small>
+                        <th>
+                            <small>Created By</small>
+                <tbody>
+            </table>
+        </div>
+    </div>
+</div>

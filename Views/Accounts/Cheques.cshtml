@@ -1,0 +1,169 @@
+﻿<div class=row>
+                                    <div class="panel panel-default">
+                                        <div class=panel-heading>
+                                            <h5 class=panel-title>Cheque</h5>
+                                        </div>
+                                        <div class=panel-body>
+                                            <div class=row>
+                                                <form method=post id=ChequeForm>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Bank Account</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=BankSubAccount required></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Cheque No</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=ChequeNo required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Pay</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=PayTo required>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Date Payable</small>
+                                                            </label>
+                                                            <input type=datetime-local step=1 class="form-control input-sm" id=DateTimePayable required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Description</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=Description required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Reference</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=Reference required>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Offset</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=OffsetType>
+                                                                <option value=0>GL Account</option>
+                                                                <option value=1>Supplier Bill</option>
+                                                            </select>
+                                                        </div>
+                                                        <div id=divGL>
+                                                            <div class=form-group>
+                                                                <label>
+                                                                    <small>Destination GL Account</small>
+                                                                </label>
+                                                                <select style=width:100% class="form-control input-sm" id=DestinationAccountID></select>
+                                                            </div>
+                                                            <div class=form-group>
+                                                                <label>
+                                                                    <small>GL Sub Account</small>
+                                                                </label>
+                                                                <select style=width:100% class="form-control input-sm" id=DestinationSubAccountID required></select>
+                                                            </div>
+                                                        </div>
+                                                        <div id=divSupplierBills hidden>
+                                                            <div class=form-group>
+                                                                <label>
+                                                                    <small>Supplier Bill</small>
+                                                                </label>
+                                                                <div class="input-group input-group-sm">
+                                                                    <select class="form-control input-sm" id=SupplierBillID disabled></select>
+                                                                    <span class=input-group-btn>
+                                                                        <a title="Select a supplier bill" class="btn btn-link btn-sm" id=btnSelectSupplierBill>
+                                                                            <span class="glyphicon glyphicon-search"></span>
+                                                                        </a>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                            <div class=form-group>
+                                                                <label>
+                                                                    <small>Balance</small>
+                                                                </label>
+                                                                <input type=number step=any class="form-control input-sm" id=BillBalance readonly>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Amount</small>
+                                                            </label>
+                                                            <input type=number step=any class="form-control input-sm" id=Amount required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Amount in words</small>
+                                                            </label>
+                                                            <textarea class="form-control input-sm" id=AmountInWords required></textarea>
+                                                        </div>
+                                                        <button class="btn btn-primary pull-right btn-xs ladda-button" id=btnSave data-style=expand-right data-size=s>Post</button>
+                                                    </div>
+                                                    <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeqItCB2FgwLnRBHm9nnZxvjDG7F8Z5eMPFDNTg5_0qyEWASmNIy4H5oLAoYu3wqKT5SYxydVjKmtczukLN1ttxZqn_62F3g9yaOL_CGUiYWiybLtyBO7GRbVvBjXq1iP-Omw3s0gbkOGR2t6Wmh8r3w8O7h2daHcbLBTJraOMNvqA>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class=panel-heading>
+                                            <h6 class=panel-title>View: Cheques</h6>
+                                        </div>
+                                        <div class=table-responsive id=no-more-tables>
+                                            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=chequestable>
+                                                <thead class=cf>
+                                                    <tr>
+                                                        <th>
+                                                            <strong>Bank</strong>
+                                                        <th>
+                                                            <strong>Destination</strong>
+                                                        <th>
+                                                            <strong>Paid To</strong>
+                                                        <th>
+                                                            <strong>Cheque No</strong>
+                                                        <th>
+                                                            <strong>DateTime Payable</strong>
+                                                        <th>
+                                                            <strong>Amount</strong>
+                                                            <tbody>
+                                            </table>
+                                        </div>
+                                        <div class=panel-footer>
+                                            <div class="row no-gutter">
+                                                <div class=col-md-12>
+                                                    <form class=form-inline method=post id=FilterForm>
+                                                        <div class=form-group>
+                                                            <label for=flag>
+                                                                <small>From: </small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=flag>
+                                                                <option value=0>Not Cancelled</option>
+                                                                <option value=1>Cancelled</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateFrom>
+                                                                <small>From: </small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateFrom required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateTo>
+                                                                <small>To: </small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateTo required>
+                                                        </div>
+                                                        <button id=btnFilter class="btn btn-info btn-xs ladda-button" data-style=expand-right data-size=s>View</button>
+                                                        <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeqItCB2FgwLnRBHm9nnZxvjDG7F8Z5eMPFDNTg5_0qyEWASmNIy4H5oLAoYu3wqKT5SYxydVjKmtczukLN1ttxZqn_62F3g9yaOL_CGUiYWiybLtyBO7GRbVvBjXq1iP-Omw3s0gbkOGR2t6Wmh8r3w8O7h2daHcbLBTJraOMNvqA>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>

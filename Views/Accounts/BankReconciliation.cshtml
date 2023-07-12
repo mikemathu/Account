@@ -1,0 +1,257 @@
+﻿<div class=row>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading clearfix">
+                                            <h5 class=panel-title>
+                                                Bank Reconciliation Details
+                                                <div class="btn-group pull-right">
+                                                    <button class="btn btn-info btn-xs dropdown-toggle" type=button data-toggle=dropdown aria-haspopup=true aria-expanded=false>
+                                                        Actions <span class=caret></span>
+                                                    </button>
+                                                    <ul class=dropdown-menu>
+                                                        <li>
+                                                            <a href=javascript:CreateNew()>Create New</a>
+                                                        <li>
+                                                            <a href=javascript:BookAdjustment()>Book Adjustments</a>
+                                                        <li>
+                                                            <a href=javascript:ClearEntries()>Clear Entries</a>
+                                                        <li>
+                                                            <a href=javascript:Reconcile()>Reconcile</a>
+                                                        <li>
+                                                            <a href=javascript:CancelRenc()>
+                                                                <span class=text-danger>Cancel</span>
+                                                            </a>
+                                                        <li role=separator class=divider>
+                                                        <li>
+                                                            <a href=javascript:ViewReconciliationReport()>Reconciliation Report</a>
+                                                    </ul>
+                                                </div>
+                                            </h5>
+                                        </div>
+                                        <div class=panel-body>
+                                            <div class=row>
+                                                <div class=col-md-12>
+                                                    <div class=row>
+                                                        <div class="col-sm-4 content-left">
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Reconciliation No:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtRecNo></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Title:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtTitle></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Bank:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtBank></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Created By:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtCreatedBy></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-sm-4 content-left">
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Created On:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtCreatedOn></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Statement Balance:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtStatementBal></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Cleared Book Balance:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtBookBal></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Adjusted Book Balance:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtAdjBookBal></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class=col-sm-4>
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Reconciled On:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtReconciledOn></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Reconciled By:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtReconciledBy></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                            <div class=row>
+                                                                <div class=col-md-6>
+                                                                    <label>
+                                                                        <strong>
+                                                                            <small>Status:</small>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class=col-md-6>
+                                                                    <small>
+                                                                        <span class=text-info id=txtStatus></span>
+                                                                    </small>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <h5>
+                                                <strong>View: Reconciliations</strong>
+                                            </h5>
+                                            <div class=table-responsive id=no-more-tables>
+                                                <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=reconciliationstable>
+                                                    <thead class=cf>
+                                                        <tr>
+                                                            <th>
+                                                                <strong>No</strong>
+                                                            <th>
+                                                                <strong>Title</strong>
+                                                            <th>
+                                                                <strong>Bank</strong>
+                                                            <th>
+                                                                <strong>Created On</strong>
+                                                            <th>
+                                                                <strong>Created By</strong>
+                                                            <th>
+                                                                <strong>Cleared Balance</strong>
+                                                            <th>
+                                                                <strong>Statement Balance</strong>
+                                                            <th>
+                                                                <strong>Book Adjustment</strong>
+                                                            <th>
+                                                                <strong>Reconciled On</strong>
+                                                            <th>
+                                                                <strong>Reconciled by</strong>
+                                                                <tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class=panel-footer>
+                                            <div class="row no-gutter">
+                                                <div class=col-md-8>
+                                                    <form class=form-inline method=post id=FilterForm>
+                                                        <div class=form-group>
+                                                            <label for=flag>View</label>
+                                                            <select class="form-control input-sm" id=flag>
+                                                                <option value=1>Not Cleared</option>
+                                                                <option value=2>Cleared</option>
+                                                                <option value=3>Cancelled</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=from>From</label>
+                                                            <input type=date class="form-control input-sm" id=dateFrom>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=to>To</label>
+                                                            <input type=date class="form-control input-sm" id=dateTo>
+                                                        </div>
+                                                        <button class="btn btn-info btn-xs" id=btnfilterbankrecs>View</button>
+                                                        <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeowqO3eqiP2eE3erVk1e80-yfqIF5CfI-yLaZsbmoWN0TrLUGgG94fb3jrkW5H91lG6PEzblVUHbPB35M7MbIh1o3Mm_XrTluVuApRC8pGBDg2ujfbZvoP3GOCb7Db62DycEHOG49r7-tfo0M6k352ILH_-5-scDu9wZJDP4hvwoA>
+                                                    </form>
+                                                </div>
+                                                <div class=col-md-4></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>

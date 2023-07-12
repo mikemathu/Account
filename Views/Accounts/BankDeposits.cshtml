@@ -1,0 +1,133 @@
+﻿<div class=row>
+                                    <div class="panel panel-default">
+                                        <div class=panel-heading>
+                                            <h5 class=panel-title>Bank Deposit Details</h5>
+                                        </div>
+                                        <div class=panel-body>
+                                            <div class=row>
+                                                <form method=post id=BankDepositForm>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Source Sub-Account</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=SourceSubAccount required></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>
+                                                                    Current Balance: <span class=text-info id=txtsrcBal></span>
+                                                                </small>
+                                                            </label>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>To Bank Account</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=BankSubAccountID required></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Amount</small>
+                                                            </label>
+                                                            <input type=number class="form-control input-sm" step=any id=Amount required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Amount in words</small>
+                                                            </label>
+                                                            <textarea type=text class="form-control input-sm" id=AmountInWords required></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Cheque Notes</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=ChequeNo>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Bank Ref No</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=BankRefNo required>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Deposited By</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=DepositedBy required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>DateTime Of Deposit</small>
+                                                            </label>
+                                                            <input type=datetime-local step=1 class="form-control input-sm" id=DateTimeOfDeposit required>
+                                                        </div>
+                                                        <button class="btn btn-primary btn-xs pull-right ladda-button" data-style=expand-right data-size=s id=btnSave>Save Deposit</button>
+                                                    </div>
+                                                    <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CerHPhUQ0pjvTh9ueQumC6hJnAzcuqp1nQBaxF2HJZ1oX3gXJknskRSAOm-q3B169aEFBBK8nfR_fP5ASTU9I7d5SyidKZ3800YncOy1LPZ0EreCq2kmFCbbXBTA05zkAx6R91FEOYIqHXf5ntJjZkci-xUHK6OD1nw4-ZOlXZPfRg>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class=panel-heading>
+                                            <h6 class=panel-title>View: Bank Deposits</h6>
+                                        </div>
+                                        <div class=table-responsive id=no-more-tables>
+                                            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=bankdepositstable>
+                                                <thead class=cf>
+                                                    <tr>
+                                                        <th>
+                                                            <strong>JV ID</strong>
+                                                        <th>
+                                                            <strong>Source Sub-Account</strong>
+                                                        <th>
+                                                            <strong>To Bank Sub-Account</strong>
+                                                        <th>
+                                                            <strong>DateTime Of Deposit</strong>
+                                                        <th>
+                                                            <strong>Deposited By</strong>
+                                                        <th>
+                                                            <strong>Total Amount</strong>
+                                                        <th>
+                                                            <tbody>
+                                            </table>
+                                        </div>
+                                        <div class=panel-footer>
+                                            <div class=row>
+                                                <div class=col-md-12>
+                                                    <form class=form-inline method=post id=FilterForm>
+                                                        <div class=form-group>
+                                                            <label for=Status>
+                                                                <small>Status</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=Status required>
+                                                                <option value=1>Posted</option>
+                                                                <option value=2>Cancelled</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateFrom>
+                                                                <small>From: </small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateFrom>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateTo>
+                                                                <small>To: </small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateTo>
+                                                        </div>
+                                                        <button class="btn btn-info btn-xs">View</button>
+                                                        <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CerHPhUQ0pjvTh9ueQumC6hJnAzcuqp1nQBaxF2HJZ1oX3gXJknskRSAOm-q3B169aEFBBK8nfR_fP5ASTU9I7d5SyidKZ3800YncOy1LPZ0EreCq2kmFCbbXBTA05zkAx6R91FEOYIqHXf5ntJjZkci-xUHK6OD1nw4-ZOlXZPfRg>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>

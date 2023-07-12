@@ -1,0 +1,61 @@
+﻿<div class=row>
+<div class=col-md-7>
+    <div class="panel panel-default">
+        <div class=panel-heading>
+            <h6 class=panel-title>Currency Units</h6>
+        </div>
+        <div class=panel-body>
+            <form method=post id=CurrencyUnitForm>
+                <input id=CurrencyUnitID hidden>
+                <div class=row>
+                    <div class=col-sm-6>
+                        <div class=form-group>
+                            <label>
+                                <small>Name</small>
+                            </label>
+                            <input id=Name class="form-control input-sm" required>
+                        </div>
+                    </div>
+                    <div class=col-sm-6>
+                        <div class=form-group>
+                            <label>
+                                <small>Multiplicand</small>
+                            </label>
+                            <input id=Multiplicand type=number step=any class="form-control input-sm" required>
+                        </div>
+                        <div id=update hidden>
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-primary btn-sm ladda-button" id=btnUpdate data-style=expand-right data-size=s>Update</button>
+                                <a id=btnCreateNew class="btn btn-primary btn-sm">New</a>
+                            </div>
+                        </div>
+                        <div id=divAdd>
+                            <button class="btn btn-primary pull-right ladda-button" id=btnAdd data-style=expand-right data-size=s>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CepBo3Aza1FujIfK6mA3aE4KoVu1oNeg-cwqgyBvFbeuZCNAyQWzpP0DGUD-Je9576h_ufTXF6C8c2cu_mouRYW4GPmr_AeyQtvi_WRYmqpeVJVO9ITcyqthtRRLNWOUyZJcECw5TGiDBN3mMXdc9tjKXaWBPoHtbvyLj_fSPSaXYw>
+            </form>
+        </div>
+        <div class=panel-heading>
+            <h6 class=panel-title>View: Currency Units</h6>
+        </div>
+        <div class=table-responsive id=no-more-tables>
+            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=unitstable>
+                <thead class=cf>
+                    <tr>
+                        <th>
+                            <strong>ID</strong>
+                        <th>
+                            <strong>Name</strong>
+                        <th>
+                            <strong>Multiplicand</strong>
+                <tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class=col-md-5></div>
+                            </div>

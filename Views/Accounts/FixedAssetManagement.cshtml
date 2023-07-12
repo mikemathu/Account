@@ -1,0 +1,193 @@
+﻿<div class=row>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading clearfix">
+                                            <h5 class=panel-title>
+                                                Fixed Asset Management
+                                                <div class="btn-group pull-right">
+                                                    <button class="btn btn-info btn-xs dropdown-toggle" type=button data-toggle=dropdown aria-haspopup=true aria-expanded=false>
+                                                        Actions <span class=caret></span>
+                                                    </button>
+                                                    <ul class=dropdown-menu>
+                                                        <li>
+                                                            <a href=javascript:DepreciationTypes()>Depreciation Types</a>
+                                                        <li>
+                                                            <a href=javascript:AssetClasses()>Asset Classes</a>
+                                                        <li>
+                                                            <a href=javascript:AssetLocations()>Asset Locations</a>
+                                                        <li>
+                                                            <a href=javascript:Depreciation()>Depreciation</a>
+                                                        <li>
+                                                            <a href=javascript:DisposeAsset()>Dispose Asset</a>
+                                                        <li>
+                                                            <a href=javascript:AssetServicing()>Servicing</a>
+                                                        <li>
+                                                            <a href=# data-toggle=modal data-target=.import-assets-modal>Import Assets</a>
+                                                        <li role=separator class=divider>
+                                                        <li>
+                                                            <a href=javascript:AssetSummary()>Asset Summary</a>
+                                                    </ul>
+                                                </div>
+                                            </h5>
+                                        </div>
+                                        <div class=panel-body>
+                                            <div class=row>
+                                                <form method=post id=FixedAssetForm>
+                                                    <input id=FixedAssetID hidden>
+                                                    <input id=CompanyBranchItemID hidden>
+                                                    <div class=col-md-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Asset Name</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=FixedAssetName required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Asset Sub-Account</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=AssetSubAccountID required></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Income Sub-Account</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=IncomeSubAccountID required></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Expense Sub-Account</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=ExpenseSubAccountID required></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Asset Class</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=FixedAssetAssetClassID required></select>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-md-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Manufacturer</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=Manufacturer>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Make</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=Make>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Model</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=Model>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Serial Number</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=SerialNumber>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Barcode</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=Barcode>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-md-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Quantity</small>
+                                                            </label>
+                                                            <input type=number class="form-control input-sm" id=Quantity min=0 step=any required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Initial Rate Per Unit</small>
+                                                            </label>
+                                                            <input type=number class="form-control input-sm" id=Rate min=0 step=any required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Initial Value</small>
+                                                            </label>
+                                                            <input type=number class="form-control input-sm" id=InitialValue min=0 step=any readonly required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Current Value</small>
+                                                            </label>
+                                                            <input type=number class="form-control input-sm" id=CurrentValue min=0 step=any required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Salvage Value</small>
+                                                            </label>
+                                                            <input type=number class="form-control input-sm" id=SalvageValue min=0 step=any required>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-md-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Date Of Acquisition</small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=DateOfAcquisition required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Asset Location</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=AssetAssetLocationID></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Employee in charge</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=EmployeeID></select>
+                                                        </div>
+                                                        <div id=updateasset hidden>
+                                                            <div class="btn-group pull-right">
+                                                                <button id=btnupdateasset class="btn btn-primary btn-sm ladda-button" data-style=expand-right data-size=s>Update</button>
+                                                                <a id=btnCreateNewAsset class="btn btn-primary btn-sm">New</a>
+                                                            </div>
+                                                        </div>
+                                                        <div id=addasset>
+                                                            <button id=btnaddasset class="btn btn-primary btn-sm pull-right ladda-button" data-style=expand-right data-size=s>
+                                                                <span class="glyphicon glyphicon-plus"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeoPPUueS2uXKcTPbtFTcTwW7hWDCsHiJDxrXsWpMqLTzJgZ9AS_PYGw6qpdFMQnqrqFgebALUSOVk4JURX4qUYQ4I7aFS3nUbQiXOSymSi8xxlzkhLPcMNqDHiTn2-rCwviGY2-8mUpwjrTTdil412iMqDYVN2BXkP4vwcPezqZ_A>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class=panel-heading>
+                                            <h5 class=panel-title>View: Fixed Assets</h5>
+                                        </div>
+                                        <div class=table-responsive id=no-more-tables>
+                                            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=fixedassetstable>
+                                                <thead class=cf>
+                                                    <tr>
+                                                        <th>
+                                                            <strong>Name</strong>
+                                                        <th>
+                                                            <strong>Class</strong>
+                                                        <th>
+                                                            <strong>Initial Value</strong>
+                                                        <th>
+                                                            <strong>Current Value</strong>
+                                                        <th>
+                                                            <strong>Salvage Value</strong>
+                                                        <th>
+                                                            <strong>Useful Life</strong>
+                                                        <th>
+                                                            <strong>Depreciation Method</strong>
+                                                            <tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>

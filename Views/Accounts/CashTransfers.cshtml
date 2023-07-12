@@ -1,0 +1,148 @@
+﻿<div class=row>
+                                    <div class="panel panel-default">
+                                        <div class=panel-heading>
+                                            <h5 class=panel-title>Cash Transfer Details</h5>
+                                        </div>
+                                        <div class=panel-body>
+                                            <div class=row>
+                                                <form method=post id=CashTransferForm>
+                                                    <div class=col-sm-4>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Source Sub-Account</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=SrcSubAccount required></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>
+                                                                    Current Balance: <span class=text-info id=txtsrcBal></span>
+                                                                </small>
+                                                            </label>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Destination Sub-Account</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=DestSubAccount required></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>
+                                                                    Current Balance: <span class=text-info id=txtdestBal></span>
+                                                                </small>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-4>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Description</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=Description required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Amount</small>
+                                                            </label>
+                                                            <input type=number step=any class="form-control input-sm" id=Amount required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Amount in words</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=AmountInWords required>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-4>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Received By</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=ReceivedBy required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>DateTime Transfered</small>
+                                                            </label>
+                                                            <input type=datetime-local step=1 class="form-control input-sm" id=DateTimeTransfered required>
+                                                        </div>
+                                                        <div id=divShift hidden>
+                                                            <div class=form-group>
+                                                                <label>
+                                                                    <small>Cashier Shift</small>
+                                                                </label>
+                                                                <select class="form-control input-sm" id=SysUserID></select>
+                                                            </div>
+                                                        </div>
+                                                        <button class="btn btn-primary btn-xs pull-right ladda-button" data-style=expand-right data-size=s id=btnTransfer>Transfer</button>
+                                                    </div>
+                                                    <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeoVVwg6btNvPpLPKqEYmOmLuOBNc-SB26whKbX2HjymXQmwnsgIdtd8frN65yxXMwJ7kuFdZec6-d2_NcO3gxM4C4ds2Bi0R_WkrhoDeTUo6JFKlXcTtSQ_-ADLlp1h8DQdVti-DiO2kNJNqawn88DnUEWuDHkyM5Wk6srdHc94oQ>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class=panel-heading>
+                                            <h6 class=panel-title>View: Cash Transfers</h6>
+                                        </div>
+                                        <div class=table-responsive id=no-more-tables>
+                                            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=transferstable>
+                                                <thead class=cf>
+                                                    <tr>
+                                                        <th>
+                                                            <strong>No</strong>
+                                                        <th>
+                                                            <strong>Description</strong>
+                                                        <th>
+                                                            <strong>Source</strong>
+                                                        <th>
+                                                            <strong>Destination</strong>
+                                                        <th>
+                                                            <strong>Transfered On</strong>
+                                                        <th>
+                                                            <strong>Transfered By</strong>
+                                                        <th>
+                                                            <strong>Received By</strong>
+                                                        <th>
+                                                            <strong>Amount</strong>
+                                                        <th>
+                                                            <strong>Ack By</strong>
+                                                        <th>
+                                                            <strong>Ack Amount</strong>
+                                                        <th>
+                                                            <tbody>
+                                            </table>
+                                        </div>
+                                        <div class=panel-footer>
+                                            <div class=row>
+                                                <div class=col-md-12>
+                                                    <form class=form-inline method=post id=FilterForm>
+                                                        <div class=form-group>
+                                                            <label for=AckStatus>
+                                                                <small>Status</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=AckStatus required>
+                                                                <option value=0>Pending Acknowledgement</option>
+                                                                <option value=1>Acknowledged</option>
+                                                                <option value=2>All</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateFrom>
+                                                                <small>Between</small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateFrom required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateTo>
+                                                                <small>And</small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateTo required>
+                                                        </div>
+                                                        <button class="btn btn-info btn-xs">View</button>
+                                                        <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeoVVwg6btNvPpLPKqEYmOmLuOBNc-SB26whKbX2HjymXQmwnsgIdtd8frN65yxXMwJ7kuFdZec6-d2_NcO3gxM4C4ds2Bi0R_WkrhoDeTUo6JFKlXcTtSQ_-ADLlp1h8DQdVti-DiO2kNJNqawn88DnUEWuDHkyM5Wk6srdHc94oQ>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>

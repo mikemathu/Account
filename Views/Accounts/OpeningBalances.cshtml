@@ -1,0 +1,185 @@
+﻿<div class=row>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading clearfix">
+                                            <h5 class=panel-title>
+                                                Opening Balance: <span class=text-info id=txtOpeningBalanceNo></span>
+                                                <div class="btn-group btn-group-xs pull-right">
+                                                    <button class="btn btn-info dropdown-toggle" type=button data-toggle=dropdown aria-haspopup=true aria-expanded=false>
+                                                        Actions <span class=caret></span>
+                                                    </button>
+                                                    <ul class=dropdown-menu id=divActions>
+                                                        <li>
+                                                            <a href=javascript:ImportBalances()>
+                                                                <span class=action-secondary>Import Balances</span>
+                                                            </a>
+                                                        <li>
+                                                            <a href=javascript:OpeningBalanceConfiguration()>Configurations</a>
+                                                    </ul>
+                                                </div>
+                                            </h5>
+                                        </div>
+                                        <div class=panel-body>
+                                            <div class=row>
+                                                <form method=post id=OpeningBalanceForm>
+                                                    <input id=OpeningBalanceID hidden>
+                                                    <div class=col-sm-4>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Type</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=OpeningBalanceType required>
+                                                                <option></option>
+                                                                <option value=1>Customer Balance</option>
+                                                                <option value=2>Supplier Balance</option>
+                                                                <option value=3>Bank Balance</option>
+                                                                <option value=4>Cash Balance</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Sub Account</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=SubAccountID style=width:100% required></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Transaction Date</small>
+                                                            </label>
+                                                            <input type=date step=1 class="form-control input-sm" id=TransactionDate required>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-4>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>
+                                                                    Description <i>Leave blank to autogenerate</i>
+                                                                </small>
+                                                            </label>
+                                                            <textarea class="form-control input-sm" id=Description></textarea>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>
+                                                                    Reference <i>Leave blank to autogenerate</i>
+                                                                </small>
+                                                            </label>
+                                                            <textarea class="form-control input-sm" id=Reference></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-4>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Amount</small>
+                                                            </label>
+                                                            <input type=number step=any class="form-control input-sm" id=Amount required>
+                                                        </div>
+                                                        <div class=row>
+                                                            <div class=col-sm-4>
+                                                                <strong>Status: </strong>
+                                                            </div>
+                                                            <div class=col-sm-8>
+                                                                <span class=text-info id=lblStatus></span>
+                                                            </div>
+                                                        </div>
+                                                        <br>
+                                                        <div id=updatebalance hidden>
+                                                            <div class="btn-group btn-group-xs pull-right">
+                                                                <button id=btnupdatebalance class="btn btn-primary ladda-button" data-style=expand-right data-size=s>Update</button>
+                                                                <a id=btnCreateNewBalance class="btn btn-primary">New</a>
+                                                            </div>
+                                                        </div>
+                                                        <div id=addbalance>
+                                                            <button id=btnaddbalance class="btn btn-primary btn-xs pull-right ladda-button" data-style=expand-right data-size=s>
+                                                                <span class="glyphicon glyphicon-plus"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeqyiFmIj-z-t9LgEuqcI8QHugH_doAb8BHqrDBEoM7G2qbYMqXVkggdtrMmIgnQL45vwVYrQE-ZkWhSPuy5hWhlVfwD3qmcCemazYLTq4XNWoncBtKaRHbJ2aPP7vTNLeVSPLjncANy-CPMZCSNh4bHbauTg-EuouVAqOd7Wy0V3w>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="panel-heading clearfix">
+                                            <h6 class=panel-title>
+                                                View: Opening Balances
+                                                <div class="btn-group btn-group-xs pull-right">
+                                                    <button class="btn btn-primary ladda-button" type=button data-style=expand-right data-size=s id=btnAuthorizeSelected disabled>Authorize Selected </button>
+                                                    <button class="btn btn-success ladda-button" type=button data-style=expand-right data-size=s id=btnPostSelected disabled>Post Selected </button>
+                                                </div>
+                                            </h6>
+                                        </div>
+                                        <div class=table-responsive id=no-more-tables>
+                                            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=balancestable>
+                                                <thead class=cf>
+                                                    <tr>
+                                                        <th>
+                                                            <input class=selectAll name=select_all value=1 type=checkbox>
+                                                            <th>
+                                                                <strong>No</strong>
+                                                            <th>
+                                                                <strong>Type</strong>
+                                                            <th>
+                                                                <strong>Txn Date</strong>
+                                                            <th>
+                                                                <strong>Debit</strong>
+                                                            <th>
+                                                                <strong>Credit</strong>
+                                                            <th>
+                                                                <strong>Status</strong>
+                                                            <th>
+                                                                <strong>Amount</strong>
+                                                                <tbody>
+                                            </table>
+                                        </div>
+                                        <div class=panel-footer>
+                                            <div class=row>
+                                                <div class=col-sm-12>
+                                                    <form class=form-inline method=post id=FilterForm>
+                                                        <div class=form-group>
+                                                            <label for=FilterType>
+                                                                <small>Type</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=FilterType required>
+                                                                <option value=-1>All</option>
+                                                                <option value=1>Customer Balance</option>
+                                                                <option value=2>Supplier Balance</option>
+                                                                <option value=3>Bank Balance</option>
+                                                                <option value=4>Cash Balance</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=FilterStatus>
+                                                                <small>Status</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=FilterStatus required>
+                                                                <option value=0>Draft</option>
+                                                                <option value=1>Authorized</option>
+                                                                <option value=2>Posted</option>
+                                                                <option value=3>Cancelled</option>
+                                                                <option value=-1>All</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateFrom>
+                                                                <small>Between</small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateFrom required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateTo>
+                                                                <small>And</small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateTo required>
+                                                        </div>
+                                                        <button class="btn btn-info btn-xs">View</button>
+                                                        <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeqyiFmIj-z-t9LgEuqcI8QHugH_doAb8BHqrDBEoM7G2qbYMqXVkggdtrMmIgnQL45vwVYrQE-ZkWhSPuy5hWhlVfwD3qmcCemazYLTq4XNWoncBtKaRHbJ2aPP7vTNLeVSPLjncANy-CPMZCSNh4bHbauTg-EuouVAqOd7Wy0V3w>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+

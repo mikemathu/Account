@@ -1,0 +1,997 @@
+﻿@model Accounts.Models.VM.AccountDetailVM
+
+<div class=row>
+    <div class=col-md-6>
+        <div class="panel panel-default">
+            <div class="panel-heading clearfix">
+                <h6 class=panel-title>
+                    Account Details
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-info btn-xs dropdown-toggle" type=button data-toggle=dropdown aria-haspopup=true aria-expanded=false>
+                            Actions <span class=caret></span>
+                        </button>
+                        <ul class=dropdown-menu>
+                            <li>
+                                <a href=# data-toggle=modal data-target=.configure-modal>Configure</a>
+                            <li>
+                                <a href=# data-toggle=modal data-target=.copy-accounts-modal>Copy Ledger Accounts</a>
+                            <li>
+                                <a href=javascript:TransferSubAccountBalance()>Transfer Sub Account Balance</a>
+                            <li>
+                                <a href=# data-toggle=modal data-target=.cashflow-categories-modal>Cash Flow Categories</a>
+                            <li>
+                                <a href=javascript:ChangeLedgerAccountNamesCase()>Change Ledger Account Names Case</a>
+                        </ul>
+                    </div>
+                </h6>
+            </div>
+            <div class=panel-body>
+                <form method=post id=AccountForm>
+                    <input hidden type=number data-val=true data-val-required="The AccountID field is required." id=Account_AccountID name=Account.id>
+                    <input value=1 hidden type=number data-val=true data-val-required="The CompanyBranchID field is required." id=Account_CompanyBranchID name=Account.CompanyBranchID>
+                    <div class=row>
+                        <div class=col-md-6>
+                            <div class=form-group>
+                                <label>
+                                    <small>Account No</small>
+                                </label>
+                                <input type=number class="form-control input-sm" readonly data-val=true data-val-required="The AccountNo field is required." id=Account_AccountNo name=Account.AccountNo>
+
+                                @*          <label asp-for="AccountDetails.Id" class="control-label"></label>
+                                <input asp-for="AccountDetails.Id" type=number class="form-control input-sm" readonly data-val=true data-val-required="The AccountNo field is required." id=Account_AccountNo name=Account.AccountNo />
+                                <span asp-validation-for="AccountDetails.Id" class="text-danger"></span>*@
+
+                            </div>
+                            <div class=form-group>
+                                <label>
+                                    <small>Account Name</small>
+                                </label>
+                                <input class="form-control input-sm" required data-val=true data-val-required="The Name field is required." id=Account_Name name=Account.Name>
+                            </div>
+                        </div>
+                        <div class=col-md-6>
+                            <div class=form-group>
+                                <label class=control-label>
+                                    <small>Account Class</small>
+                                </label>
+                                <div class=input-group>
+                                    <select class="form-control input-sm select-account-class" style=width:100% required data-val=true data-val-required="The AccountClassID field is required." id=Account_AccountClassID name=Account.AccountClassID>
+                                      @*  <option value=1>Inventory</option>
+                                        <option value=2>Finance</option>*@
+                                    </select>
+
+                                    <span class=input-group-btn>
+                                        <a title="Add an account class" class="btn btn-link btn-sm" data-toggle=modal data-target=.add-accountclass-modal>
+                                            <span class="glyphicon glyphicon-plus"></span>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class=form-group>
+                                <label>
+                                    <small>Cash Flow Category</small>
+                                </label>
+                                <select class="form-control input-sm" data-val=true data-val-required="The CashFlowCategoryID field is required." id=Account_CashFlowCategoryID name=Account.CashFlowCategoryID>
+                                        @* <option value="0"></option>*@
+                                </select>
+                            </div>
+                            <div id=updateaccount hidden>
+                                <div class="btn-group btn-group-xs pull-right">
+                                    <button id=btnupdateaccount class="btn btn-primary ladda-button" data-style=expand-right data-size=s>Update</button>
+                                    <a id=btnCreateNewAccount class="btn btn-primary">New</a>
+                                </div>
+                            </div>
+                            <div id=addaccount>
+                                <button id=btnaddaccount class="btn btn-xs btn-primary pull-right ladda-button" data-style=expand-right data-size=s>
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CerzDQfM--dX-_w3eLbpq5zQ0pO_K-uvrEtQNs9pq2ZqpVYIrYewoXpXK9-BnOJe7T5G1CX-Jd7qRHupogFeqk18NBNa93wIufIwuADrVnIApQIRgQnB9DG8kY4ePozwno0zPx5p8ryT7JXX5ZFkqm6UPqkCrRrIkJud5gK07bXHKg>
+                </form>
+            </div>
+            <div class=panel-heading>
+                <h6 class=panel-title>View: Accounts</h6>
+            </div>
+            <div class=table-responsive id=no-more-tables>
+                <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=accountstable>
+                    <thead class=cf>
+                        <tr>
+                            <th>
+                                <strong>No</strong>
+                            <th>
+                                <strong>Account Name</strong>
+                            <th>
+                                <strong>Account Class</strong>
+                    <tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class=col-md-6>
+        <div class="panel panel-default">
+            <div class=panel-heading>
+                <h6 class=panel-title>Sub-Account Details</h6>
+            </div>
+            <div class=panel-body>
+                <form method=post id=SubAccountForm>
+                    <input hidden type=number data-val=true data-val-required="The SubAccountID field is required." id=SubAccount_SubAccountID name=SubAccount.SubAccountID>
+                    <div class=row>
+                        <div class=col-md-6>
+                            <div class=form-group>
+                                <label>
+                                    <small>Sub-Account Name</small>
+                                </label>
+                                <input class="form-control input-sm" required data-val=true data-val-required="The Name field is required." id=SubAccount_Name name=SubAccount.Name>
+                            </div>
+                            <div class=form-group>
+                                <label>
+                                    <small>Account</small>
+                                </label>
+                                <select class="form-control input-sm" required disabled data-val=true data-val-required="The AccountID field is required." id=SubAccount_AccountID name=SubAccount.id></select>
+                            </div>
+                        </div>
+                        <div class=col-md-6>
+                            <div class=form-group>
+                                <label>
+                                    <small>Current balance</small>
+                                </label>
+                                <input type=number step=any class="form-control input-sm" readonly data-val=true data-val-number="The field CurrentBalance must be a number." data-val-required="The CurrentBalance field is required." id=SubAccount_CurrentBalance name=SubAccount.CurrentBalance>
+                            </div>
+                            <div id=updatesubacc hidden>
+                                <div class="btn-group btn-group-xs pull-right">
+                                    <button id=btnupdatesubaccount class="btn btn-primary ladda-button" data-style=expand-right data-size=s>Update</button>
+                                    <a id=btnCreateNewSubAccount class="btn btn-primary">New</a>
+                                </div>
+                            </div>
+                            <div id=addsubacc>
+                                <button id=btnaddsubaccount class="btn btn-primary btn-xs pull-right ladda-button" data-style=expand-right data-size=s>
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CerzDQfM--dX-_w3eLbpq5zQ0pO_K-uvrEtQNs9pq2ZqpVYIrYewoXpXK9-BnOJe7T5G1CX-Jd7qRHupogFeqk18NBNa93wIufIwuADrVnIApQIRgQnB9DG8kY4ePozwno0zPx5p8ryT7JXX5ZFkqm6UPqkCrRrIkJud5gK07bXHKg>
+                </form>
+            </div>
+            <div class=panel-heading>
+                <h6 class=panel-title>
+                    View: Sub-Accounts (<span id=ForAcc class=text-info></span>
+                    )
+                </h6>
+            </div>
+            <div class=table-responsive id=no-more-tables>
+                <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=subaccountstable>
+                    <thead class=cf>
+                        <tr>
+                            <th>
+                                <strong>No</strong>
+                            <th>
+                                <strong>Name</strong>
+                            <th>
+                    <tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade configure-modal" aria-labelledby=myModalLabel data-keyboard=false data-backdrop=static>
+    <div class=modal-dialog role=document>
+        <div class=modal-content>
+            <div class=modal-header>
+                <button type=button class="close stop" data-dismiss=modal aria-label=Close>
+                    <span aria-hidden=true>&times;</span>
+                </button>
+                <h4 class=modal-title id=myModalLabel>Configure Accounts/Sub-Accounts For Automatic Posting</h4>
+            </div>
+            <div class=modal-body>
+                <h5>
+                    <strong>
+                        <u>Accounts Configuration</u>
+                    </strong>
+                </h5>
+                <br>
+                <div class=row>
+                    <div class=col-md-6>
+                        <div class=form-group>
+                            <label>
+                                <small>Account Configuration: </small>
+                            </label>
+                            <select id=AccountConfiguration class="form-control input-sm">
+                                <option value=0></option>
+                                <option value=1>Cash</option>
+                                <option value=2>Bank</option>
+                                <option value=3>Accrued Liabilities</option>
+                                <option value=4>Inventory</option>
+                                <option value=5>Cost Of Sales</option>
+                                <option value=6>Revenue</option>
+                                <option value=7>Receivables</option>
+                                <option value=8>Payables</option>
+                                <option value=9>Customer Deposits</option>
+                                <option value=10>Long Term Borrowings</option>
+                                <option value=11>Short Term Borrowings</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class=col-md-6>
+                        <div class=form-group>
+                            <label>
+                                <small>Select Account: </small>
+                            </label>
+                            <select id=ConfiguredAccountID class="form-control input-sm" style=width:100%></select>
+                        </div>
+                    </div>
+                </div>
+                <h5>
+                    <strong>
+                        <u>Sub-Accounts Configuration</u>
+                    </strong>
+                </h5>
+                <br>
+                <div class=row>
+                    <div class=col-md-6>
+                        <div class=form-group>
+                            <label>
+                                <small>Sub-Account Configuration: </small>
+                            </label>
+                            <select id=SubAccountConfiguration class="form-control input-sm">
+                                <option value=0></option>
+                                <option value=1>Opening Balance</option>
+                                <option value=2>Cash Short</option>
+                                <option value=3>Cash At Hand</option>
+                                <option value=4>Cash Over</option>
+                                <option value=5>Dividends</option>
+                                <option value=6>Retained Earnings</option>
+                                <option value=7>Consultant Bill Tax Liability</option>
+                                <option value=8>Consultant Bill Tax Expense</option>
+                                <option value=9>Consultant Bill Account Payable</option>
+                                <option value=10>Consultant Bill Fee Expense</option>
+                                <option value=11>Salaries Payable</option>
+                                <option value=12>Salary Expense</option>
+                                <option value=13>Income Tax Payable</option>
+                                <option value=14>Income Tax Expense</option>
+                                <option value=15>Depreciation Expense</option>
+                                <option value=16>Accumulated Depreciation</option>
+                                <option value=17>Salary Advance</option>
+                                <option value=18>Refund on Advance</option>
+                                <option value=19>Employee Medical Invoice Write-Off Expense</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class=col-md-6>
+                        <div class=form-group>
+                            <label>
+                                <small>Select Sub-Account: </small>
+                            </label>
+                            <select id=ConfiguredSubAccountID class="form-control input-sm" style=width:100%></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade transfer-balance-modal" tabindex=-1 role=dialog aria-labelledby=myModalLabel data-keyboard=false data-backdrop=static>
+    <div class="modal-dialog modal-sm" role=document>
+        <div class=modal-content>
+            <div class=modal-header>
+                <button type=button class=close data-dismiss=modal aria-label=Close>
+                    <span aria-hidden=true>&times;</span>
+                </button>
+                <h4 class=modal-title id=myModalLabel>
+                    <strong>
+                        <small>Transfer Sub Account Balance</small>
+                    </strong>
+                </h4>
+            </div>
+            <div class=modal-body>
+                <div class=row>
+                    <form method=post id=TransferSubAccountForm>
+                        <div class=col-md-12>
+                            <p>
+                                <strong>Src: </strong>
+                                <span class=text-info id=txtSrcSubAcc></span>
+                            </p>
+                            <br>
+                            <div class=form-group>
+                                <label>
+                                    <strong>
+                                        <small>Destination Account </small>
+                                    </strong>
+                                </label>
+                                <select class="form-control input-sm" id=TransferDestAccountID style=width:100%></select>
+                            </div>
+                            <div class=form-group>
+                                <label>
+                                    <strong>
+                                        <small>Destination Sub Account </small>
+                                    </strong>
+                                </label>
+                                <select class="form-control input-sm" id=TransferDestSubAccountID style=width:100% required></select>
+                            </div>
+                            <button id=btnTransferSubAccountBalance class="btn btn-primary btn-sm pull-right ladda-button" data-style=expand-right data-size=s>Transfer</button>
+                        </div>
+                        <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6Cer2eV8XCMJBo_M7qKx6Sq7h86hBWpwLPw76CcoX1vwXDos9nFT0Dl7hVrqeEPYzeiyjQh4QlBCl4yVbts55Ok9zDD-s403SWntNX7KUc63x8xyVbZEeHntHyIj6GE80jFni6Nty6ZUh5z8SNHpieSIHhOY4nLCR7TtnG1qMkmcMvA>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@await Html.PartialAsync("./PartialViews/_AddAccountClass")
+@await Html.PartialAsync("./PartialViews/_TransferSubAccountBalance")
+@await Html.PartialAsync("./PartialViews/_CashFlowCategories")
+
+
+
+@*<script src="~/js/Accounts/generalledgeraccounts.js"></script>*@
+
+<script src=" https://webapps1.chicago.gov/cdn/jQuery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script src="~/js/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/js/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+    $(document).ready(function () {
+       // alert("ready");
+       // $.validator.unobtrusive.parse($("#studentForm"));
+
+        // });
+       
+
+    function ReloadPage() {
+    FetchAccountClasses();
+    LoadAllAccounts();
+    LoadAllSubAccounts();
+    LoadAllBranches();
+    LoadAllCashFlowCategories()
+}
+function LoadAllAccounts() {
+    var t = $("#ConfiguredAccountID"), n;
+    t.empty();
+    t.append('<option value="0"><\/option>');
+    n = $("#TransferDestAccountID");
+    n.empty();
+    n.append("<option><\/option>");
+    AjaxServerCallAsync("GET", "/Accounts/GetAllAccounts/", "", "", function(i) {
+        var r = i.response, u;
+        if (i.status && (accountsTable.clear().draw(),
+        !$.isEmptyObject(r))) {
+            u = "";
+            for (let i = 0; i < r.length; i++)
+                t.append(new Option(r[i].accountName,r[i].accountID)),
+                n.append(new Option(r[i].accountName,r[i].accountID)),
+                //u += '<tr id="' + r[i].accountID + '"><td data-title="Account No">' + r[i].accountNo + '<\/td><td data-title="Account Name">' + r[i].accountName + '<\/td><td data-title="Account Class">' + r[i].accountClass.className + "<\/td><\/tr>";
+                u += '<tr id="' + r[i].accountID + '"><td data-title="Account No">' + r[i].accountNo + '<\/td><td data-title="Account Name">' + r[i].accountName + '<\/td><td data-title="Account Class">' + r[i].accountClass.className + "<\/td><\/tr>";
+                accountsTable.rows.add($(u)).draw(!1);
+            t.select2();
+            n.select2()
+        }
+    })
+}
+function GetAccountDetails(n) {
+    var t = n
+      , i = $("#AccountForm input[name=__RequestVerificationToken]").val();
+    AjaxServerCallAsync("POST", "/Accounts/GetAccountDetails/", t, i, function(t) {
+        var i = t.response, f;
+        if (t.status) {
+            var u = i.accountID
+              , e = i.accountNo
+              , r = i.accountName
+              , o = i.accountClassID;
+            $("#Account_AccountID").val(u);
+            $("#Account_AccountNo").val(e);
+            $("#Account_Name").val(r);
+            $("#Account_AccountClassID").val(o);
+            $("#Account_CashFlowCategoryID").val(i.cashFlowCategoryID);
+            f = new Option(r,u,!0,!0);
+            $("#SubAccount_AccountID").append(f);
+            retrySub = 3;
+            LoadAllSubAccountsByAccountID(n);
+            $("#ForAcc").text(r.toUpperCase());
+            $("#btnCreateNewSubAccount").click();
+            $("#addaccount").hide();
+            $("#updateaccount").show()
+        }
+    })
+}
+function DeleteAccount(n) {
+    var t = n
+      , i = $("#AccountForm input[name=__RequestVerificationToken]").val();
+    AjaxServerCallAsync("POST", "/Accounts/DeleteAccount/", t, i, function(t) {
+        var i = t.response;
+        //t.status ? ($("#accountstable #" + n).remove(), //Refer to DeleteAccount() action method
+        i.status ? ($("#accountstable #" + n).remove(),
+        //Notify(!0, "Account Deleted Successfully")) : Notify(!1, i) 
+        Notify(!0, "Account Deleted Successfully")) : Notify(!1, i.responce)
+    })
+}
+function LoadAllSubAccountsByAccountID(n) {
+    var t = n;
+    GetOrPostAsync("POST", "/Accounts/GetAllLedgerAccountsPanelSubAccountsByAccountID/", t, "").then(n=>{
+        if (subAccountsTable.clear().draw(),
+        !$.isEmptyObject(n)) {
+            var t = "";
+            for (let i = 0; i < n.length; i++) {
+                let r, u;
+                n[i].isActive === 1 ? (r = "black",
+                u = '<a title="Deactivate Sub Account" href="Javascript:DeactivateSubAccount(' + n[i].subAccountID + ')"><i class="fas fa-toggle-on fa-lg pull-right"><\/i><\/a>') : (r = "gray",
+                u = '<a title="Activate Sub Account" href="Javascript:ActivateSubAccount(' + n[i].subAccountID + ')"><i class="fas fa-toggle-off fa-lg pull-right"><\/i><\/a>');
+                t += '<tr style="color: ' + r + '" id="' + n[i].subAccountID + '"><td data-title="No">' + n[i].subAccountID + '<\/td><td data-title="Name">' + n[i].name + "<\/td><td>" + u + "<\/td><\/tr>"
+            }
+            subAccountsTable.rows.add($(t)).draw(!1)
+        }
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function GetSubAccountDetails(n) {
+    var t = n
+      , i = $("#SubAccountForm input[name=__RequestVerificationToken]").val();
+    AjaxServerCallAsync("POST", "/Accounts/GetSubAccountDetails/", t, i, function(n) {
+        var t = n.response;
+        if (n.status) {
+            var r = t.subAccountID
+              , i = t.name
+              , u = t.currentBalance;
+            $("#SubAccount_SubAccountID").val(r);
+            $("#SubAccount_Name").val(i);
+            $("#SubAccount_CurrentBalance").val(u);
+            $("#txtSrcSubAcc").text(i);
+            $("#addsubacc").hide();
+            $("#updatesubacc").show()
+        }
+    })
+}
+function ActivateSubAccount(n) {
+    var t = n
+      , i = $("#SubAccountForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/ActivateSubAccount/", t, i).then(()=>{
+        LoadAllSubAccountsByAccountID($("#SubAccount_AccountID").val()),
+        Notify(!0, "Sub Account Activated Successfully")
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function DeactivateSubAccount(n) {
+    var t = n
+      , i = $("#SubAccountForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/DeactivateSubAccount/", t, i).then(()=>{
+        LoadAllSubAccountsByAccountID($("#SubAccount_AccountID").val()),
+        Notify(!0, "Sub Account Deactivated Successfully")
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function DeleteSubAccount(n) {
+    var t = n
+      , i = $("#SubAccountForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/DeleteSubAccount/", t, i).then(()=>{
+        LoadAllSubAccountsByAccountID($("#SubAccount_AccountID").val()),
+        Notify(!0, "Sub Account Deleted Successfully")
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function LoadAllSubAccounts() {
+    GetOrPostAsync("GET", "/Accounts/GetAllBranchSubAccounts/", "", "").then(n=>{
+        var i = $("#ConfiguredSubAccountID"), r, t;
+        if (i.empty(),
+        i.append('<option value="0"><\/option>'),
+        !$.isEmptyObject(n)) {
+            for (r = "",
+            t = 0; t < n.length; t++)
+                i.append(new Option(n[t].name,n[t].subAccountID));
+            i.select2()
+        }
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function LoadAllBranches() {
+    var n = $("#CopyAccountsBranchID");
+    n.empty();
+    n.append("<option><\/option>");
+    GetOrPostAsync("GET", "/Configurations/GetAllBranchesApartFromThis/", "", "").then(t=>{
+        var i, r;
+        if (!$.isEmptyObject(t))
+            for (i = 0; i < t.length; i++)
+                r = new Option(t[i].name,t[i].companyBranchID),
+                n.append(r)
+    }
+    ).catch(n=>Notify(!1, n))
+}
+
+function LoadAllCashFlowCategories() {
+    var t = $("#CashFlowCategoryForm input[name=__RequestVerificationToken]").val()
+      , n = $("#Account_CashFlowCategoryID");
+    let i = Number($("#Account_CashFlowCategoryID").val() || 0);
+    n.empty();
+    n.append('<option value="0"><\/option>');
+    GetOrPostAsync("GET", "/Accounts/GetActiveCashFlowCategories/", "", t).then(t=>{
+        var u, r;
+        if (cashflowcatsTable.clear().draw(),
+        !$.isEmptyObject(t)) {
+            for (u = "",
+            r = 0; r < t.length; r++)
+                n.append(i === t[r].cashFlowCategoryID ? new Option(t[r].name,t[r].cashFlowCategoryID,!0,!0) : new Option(t[r].name,t[r].cashFlowCategoryID)),
+                u += '<tr id="' + t[r].cashFlowCategoryID + '"><td data-title="No">' + t[r].cashFlowCategoryID + '<\/td><td data-title="Name">' + t[r].name + '<\/td><td data-title="Type">' + t[r].type + "<\/td><\/tr>";
+            cashflowcatsTable.rows.add($(u)).draw(!1)
+        }
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function GetCashFlowCategoryDetails(n) {
+    var t = n
+      , i = $("#CashFlowCategoryForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/GetCashFlowCategoryDetails/", t, i).then(n=>{
+        $("#CashFlowCategoryCashFlowCategoryID").val(n.cashFlowCategoryID),
+        $("#CashFlowCategoryName").val(n.name),
+        $("#CashFlowCategoryType").val(n.type),
+        $("#addcfcat").hide(),
+        $("#updatecfcat").show()
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function DeleteCashFlowCategory(n) {
+    var t = n
+      , i = $("#CashFlowCategoryForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/DeleteCashFlowCategory/", t, i).then(()=>{
+        LoadAllCashFlowCategories(),
+        Notify(!0, "Cash Flow Category Deleted Successfully.")
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function TransferSubAccountBalance() {
+    let n = Number($("#SubAccount_SubAccountID").val() || 0);
+    if (n === 0) {
+        Notify(!1, "First select the source sub account.");
+        return
+    }
+    $("#TransferSubAccountForm")[0].reset();
+    $("#TransferDestAccountID").select2();
+    $("#TransferDestSubAccountID").empty().select2();
+    $(".transfer-balance-modal").modal("toggle")
+}
+function ChangeLedgerAccountNamesCase() {
+    $("#ChangeLedgerAccountNamesCaseForm")[0].reset();
+    $(".change-account-name-case-modal").modal("toggle")
+}
+const accountsTable = $("#accountstable").DataTable({
+    drawCallback: function() {
+        $.contextMenu("destroy", `#${$(this).prop("id")} tbody tr td`);
+        $.contextMenu({
+            selector: "#accountstable tbody tr td",
+            trigger: "right",
+            delay: 500,
+            autoHide: !0,
+            callback: function(n, t) {
+                var i = t.$trigger[0].parentElement.id, r;
+                switch (n) {
+                case "select":
+                    GetAccountDetails(i);
+                    break;
+                case "delete":
+                    r = confirm("Are You Sure You Want To Delete The Selected Account?");
+                    r === !0 && DeleteAccount(i)
+                }
+            },
+            items: {
+                select: {
+                    name: "Select"
+                },
+                "delete": {
+                    name: "Delete"
+                }
+            }
+        })
+    },
+    lengthChange: !1,
+    buttons: ["excel", "csv", "pdf", "print"],
+    paging: !1,
+    searching: !0,
+    ordering: !0,
+    bInfo: !1,
+    select: !0,
+    scrollY: "36vh",
+    sScrollX: "100%",
+    scrollX: !0
+});
+accountsTable.on("select", function(n, t, i, r) {
+    if (i === "row") {
+        let t = accountsTable.rows(r).data().toArray()
+          , n = t[0].DT_RowId;
+        n !== undefined && GetAccountDetails(n)
+    }
+});
+const subAccountsTable = $("#subaccountstable").DataTable({
+    drawCallback: function() {
+        $.contextMenu("destroy", `#${$(this).prop("id")} tbody tr td`);
+        $.contextMenu({
+            selector: "#subaccountstable tbody tr td",
+            trigger: "right",
+            delay: 500,
+            autoHide: !0,
+            callback: function(n, t) {
+                var i = t.$trigger[0].parentElement.id, r;
+                switch (n) {
+                case "select":
+                    GetSubAccountDetails(i);
+                    break;
+                case "delete":
+                    r = confirm("Are You Sure You Want To Delete The Selected Sub Account?");
+                    r === !0 && DeleteSubAccount(i)
+                }
+            },
+            items: {
+                select: {
+                    name: "Select"
+                },
+                "delete": {
+                    name: "Delete"
+                }
+            }
+        })
+    },
+    lengthChange: !1,
+    buttons: ["excel", "csv", "pdf", "print"],
+    paging: !1,
+    searching: !0,
+    ordering: !0,
+    bInfo: !1,
+    select: !0,
+    scrollY: "41vh",
+    sScrollX: "100%",
+    scrollX: !0
+});
+subAccountsTable.on("select", function(n, t, i, r) {
+    if (i === "row") {
+        let t = subAccountsTable.rows(r).data().toArray()
+          , n = t[0].DT_RowId;
+        n !== undefined && GetSubAccountDetails(n)
+    }
+});
+const cashflowcatsTable = $("#cashflowcatstable").DataTable({
+    drawCallback: function() {
+        $.contextMenu("destroy", `#${$(this).prop("id")} tbody tr td`);
+        $.contextMenu({
+            selector: "#cashflowcatstable tbody tr td",
+            trigger: "right",
+            delay: 500,
+            autoHide: !0,
+            callback: function(n, t) {
+                var i = t.$trigger[0].parentElement.id, r;
+                switch (n) {
+                case "select":
+                    GetCashFlowCategoryDetails(i);
+                    break;
+                case "delete":
+                    r = confirm("Are You Sure You Want To Delete The Selected Category?");
+                    r === !0 && DeleteCashFlowCategory(i)
+                }
+            },
+            items: {
+                select: {
+                    name: "Select"
+                },
+                "delete": {
+                    name: "Delete"
+                }
+            }
+        })
+    },
+    lengthChange: !1,
+    paging: !1,
+    searching: !0,
+    ordering: !0,
+    bInfo: !1,
+    select: !0,
+    scrollY: "45vh",
+    sScrollX: "100%",
+    scrollX: !0
+});
+cashflowcatsTable.on("select", function(n, t, i, r) {
+    if (i === "row") {
+        let t = cashflowcatsTable.rows(r).data().toArray()
+          , n = t[0].DT_RowId;
+        n !== undefined && GetCashFlowCategoryDetails(n)
+    }
+});
+$(document).ready(function() {
+    accountsTable.buttons().container().appendTo("#accountstable_wrapper .col-sm-6:eq(0)");
+    subAccountsTable.buttons().container().appendTo("#subaccountstable_wrapper .col-sm-6:eq(0)")
+});
+$(document).ready(function() {
+    accountsTable.clear().draw();
+    subAccountsTable.clear().draw();
+    cashflowcatsTable.clear().draw();
+    $("#Account_AccountID").val("0");
+    $("#Account_AccountNo").val("0");
+    $("#SubAccount_SubAccountID").val("0");
+    $("#SubAccount_CurrentBalance").val("0");
+    $("#CashFlowCategoryCashFlowCategoryID").val("0");
+    ReloadPage()
+});
+$("#AccountForm").submit(function(n) {
+    var i, t;
+    n.preventDefault();
+    i = $("#Account_AccountID").val();
+    t = Ladda.create(document.querySelector("#btnaddaccount"));
+    i > 0 && (t = Ladda.create(document.querySelector("#btnupdateaccount")));
+    t.start();
+    t.isLoading();
+    t.setProgress(-1);
+    var r = {
+        AccountID: $("#Account_AccountID").val(),
+        CompanyBranchID: $("#Account_CompanyBranchID").val(),
+        AccountNo: $("#Account_AccountNo").val(),
+        AccountName: $("#Account_Name").val(),
+        AccountClassID: $("#Account_AccountClassID").val(),
+        CashFlowCategoryID: $("#Account_CashFlowCategoryID").val()
+    }
+      , u = $("#AccountForm input[name=__RequestVerificationToken]").val();
+    AjaxServerCallAsync("POST", "/Accounts/CreateUpdateAccount/", r, u, function(n) {
+        var r = n.response;
+        if (n.status) {
+            if (i > 0) {
+                let n = '<tr id="' + r.accountID + '"><td data-title="Account No">' + r.accountNo + '<\/td><td data-title="Account Name">' + r.accountName + '<\/td><td data-title="Account Class">' + r.accountClass.className + "<\/td><\/tr>";
+                $("#accountstable #" + i).replaceWith(n);
+                Notify(!0, "Account Updated Successfully")
+            } else {
+                let n = '<tr id="' + r.accountID + '"><td data-title="Account No">' + r.accountNo + '<\/td><td data-title="Account Name">' + r.accountName + '<\/td><td data-title="Account Class">' + r.accountClass.className + "<\/td><\/tr>";
+                accountsTable.row.add($(n)).draw(!1);
+                Notify(!0, "Account Created Successfully");
+                $("#btnCreateNewAccount").click()
+            }
+            t.stop()
+        } else
+            t.stop(),
+            Notify(!1, r)
+    })
+});
+var retrySub = 0;
+$("#btnCreateNewAccount").click(function() {
+    $("#AccountForm")[0].reset();
+    $("#updateaccount").hide();
+    $("#addaccount").show();
+    $("#Account_AccountID").val("0");
+    $("#Account_AccountNo").val("0");
+    subAccountsTable.clear().draw();
+    $("#btnCreateNewSubAccount").click();
+    $("#ForAcc").text("");
+    $("#SubAccount_AccountID").empty()
+});
+$("#SubAccountForm").submit(function(n) {
+    var i, t;
+    n.preventDefault();
+    i = Number($("#SubAccount_SubAccountID").val() || 0);
+    t = Ladda.create(document.querySelector("#btnaddsubaccount"));
+    i > 0 && (t = Ladda.create(document.querySelector("#btnupdatesubaccount")));
+    t.start();
+    t.isLoading();
+    t.setProgress(-1);
+    var r = {
+        SubAccountID: $("#SubAccount_SubAccountID").val(),
+        Name: $("#SubAccount_Name").val(),
+        AccountID: $("#SubAccount_AccountID").val(),
+        CurrentBalance: $("#SubAccount_CurrentBalance").val()
+    }
+      , u = $("#SubAccountForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/CreateUpdateSubAccount/", r, u).then(()=>{
+        LoadAllSubAccountsByAccountID(r.AccountID),
+        t.stop(),
+        i > 0 ? Notify(!0, "Sub Account Updated Successfully") : (Notify(!0, "Sub Account Created Successfully"),
+        $("#btnCreateNewSubAccount").click())
+    }
+    ).catch(n=>{
+        t.stop(),
+        Notify(!1, n)
+    }
+    )
+});
+$("#btnCreateNewSubAccount").click(function() {
+    $("#SubAccountForm")[0].reset();
+    $("#updatesubacc").hide();
+    $("#addsubacc").show();
+    $("#SubAccount_SubAccountID").val("0");
+    $("#SubAccount_CurrentBalance").val("0");
+    $("#txtSrcSubAcc").text("")
+});
+$("#AccountConfiguration").on("change", ()=>{
+    var n = Number($("#AccountConfiguration").val())
+      , t = $("#ConfiguredAccountID");
+    if (t.val("0").select2(),
+    n !== 0) {
+        var i = n
+          , r = $("#AccountForm input[name=__RequestVerificationToken]").val();
+        GetOrPostAsync("POST", "/Accounts/GetAccountByConfiguration/", i, r).then(n=>{
+            $.isEmptyObject(n) || t.val(n.accountID).select2()
+        }
+        ).catch(n=>Notify(!1, n))
+    }
+}
+);
+$("#SubAccountConfiguration").on("change", ()=>{
+    var n = Number($("#SubAccountConfiguration").val())
+      , t = $("#ConfiguredSubAccountID");
+    if (t.val("0").select2(),
+    n !== 0) {
+        var i = n
+          , r = $("#AccountForm input[name=__RequestVerificationToken]").val();
+        GetOrPostAsync("POST", "/Accounts/GetSubAccountByConfiguration/", i, r).then(n=>{
+            $.isEmptyObject(n) || t.val(n.subAccountID).select2()
+        }
+        ).catch(n=>Notify(!1, n))
+    }
+}
+);
+$("#ConfiguredAccountID").on("change", ()=>{
+    var t = Number($("#ConfiguredAccountID").val())
+      , n = Number($("#AccountConfiguration").val());
+    if (n === 0) {
+        Notify(!1, "First select the configuration type.");
+        return
+    }
+    var i = {
+        AccountID: t,
+        Flag: n
+    }
+      , r = $("#AccountForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/ConfigureAccount/", i, r).then(()=>{
+        Notify(!0, "Configuration saved successfully.")
+    }
+    ).catch(n=>Notify(!1, n))
+}
+);
+$("#ConfiguredSubAccountID").on("change", ()=>{
+    var t = Number($("#ConfiguredSubAccountID").val())
+      , n = Number($("#SubAccountConfiguration").val());
+    if (n === 0) {
+        Notify(!1, "First select the configuration type.");
+        return
+    }
+    var i = {
+        SubAccountID: t,
+        Flag: n
+    }
+      , r = $("#AccountForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/ConfigureSubAccount/", i, r).then(()=>{
+        Notify(!0, "Configuration saved successfully.")
+    }
+    ).catch(n=>Notify(!1, n))
+}
+);
+$("#CopyAccountsForm").submit(function(n) {
+    var t;
+    n.preventDefault();
+    t = Ladda.create(document.querySelector("#btnCopyAccounts"));
+    t.start();
+    t.isLoading();
+    t.setProgress(-1);
+    var i = $("#CopyAccountsBranchID").val()
+      , r = $("#CopyAccountsForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/CopyLedgerAccounts/", i, r).then(()=>{
+        Notify(!0, "Ledger Accounts copied successfully"),
+        LoadAllAccounts(),
+        t.stop(),
+        $(".copy-accounts-modal").modal("toggle")
+    }
+    ).catch(n=>{
+        t.stop(),
+        Notify(!1, n)
+    }
+    )
+});
+$("#CashFlowCategoryForm").submit(function(n) {
+    var i, t;
+    n.preventDefault();
+    i = Number($("#CashFlowCategoryCashFlowCategoryID").val() || 0);
+    t = Ladda.create(document.querySelector("#btnaddcfcat"));
+    i > 0 && (t = Ladda.create(document.querySelector("#btnupdatecfcat")));
+    t.start();
+    t.isLoading();
+    t.setProgress(-1);
+    var r = {
+        CashFlowCategoryID: i,
+        Name: $("#CashFlowCategoryName").val(),
+        Type: $("#CashFlowCategoryType").val()
+    }
+      , u = $("#CashFlowCategoryForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/CreateUpdateCashFlowCategory/", r, u).then(()=>{
+        LoadAllCashFlowCategories(),
+        i > 0 ? Notify(!0, "Cash Flow Category Updated Successfully") : (Notify(!0, "Cash Flow Category Created Successfully"),
+        $("#btnCreateNewCfcat").click()),
+        t.stop()
+    }
+    ).catch(n=>{
+        t.stop(),
+        Notify(!1, n)
+    }
+    )
+});
+$(document).ready(function() {
+    $("#btnCreateNewCfcat").click(function() {
+        $("#CashFlowCategoryForm")[0].reset();
+        $("#CashFlowCategoryCashFlowCategoryID").val("0");
+        $("#updatecfcat").hide();
+        $("#addcfcat").show()
+    })
+});
+$("#TransferDestAccountID").on("change", function() {
+    let t = $(this).val();
+    var i = t
+      , n = $("#TransferDestSubAccountID");
+    n.empty();
+    n.append("<option><\/option>");
+    GetOrPostAsync("POST", "/Accounts/GetAllSubAccountsByAccountID/", i, "").then(t=>{
+        if (!$.isEmptyObject(t))
+            for (let i = 0; i < t.length; i++)
+                n.append(new Option(t[i].name,t[i].subAccountID))
+    }
+    ).catch(n=>console.log(n))
+});
+$("#TransferSubAccountForm").submit(function(n) {
+    var t;
+    n.preventDefault();
+    t = Ladda.create(document.querySelector("#btnTransferSubAccountBalance"));
+    t.start();
+    t.isLoading();
+    t.setProgress(-1);
+    var i = {
+        SourceSubAccountID: $("#SubAccount_SubAccountID").val(),
+        DestSubAccountID: $("#TransferDestSubAccountID").val()
+    }
+      , r = $("#TransferSubAccountForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/TransferSubAccountBalance/", i, r).then(()=>{
+        t.stop(),
+        Notify(!0, "Balance Transferred Successfully."),
+        $(".transfer-balance-modal").modal("toggle")
+    }
+    ).catch(n=>{
+        t.stop(),
+        Notify(!1, n)
+    }
+    )
+});
+$("#ChangeLedgerAccountNamesCaseForm").submit(function(n) {
+    var t;
+    if (confirm("You are about to change the case of all your ledger account names. Do you wish to continue?")) {
+        n.preventDefault();
+        t = Ladda.create(document.querySelector("#btnChangeLedgerAccountNamesCase"));
+        t.start();
+        t.isLoading();
+        t.setProgress(-1);
+        var i = {
+            LetterCaseType: $("#ChangeCaseType").val()
+        }
+          , r = $("#ChangeLedgerAccountNamesCaseForm input[name=__RequestVerificationToken]").val();
+        GetOrPostAsync("POST", "/Accounts/ChangeLedgerNameCases/", i, r).then(()=>{
+            t.stop(),
+            Notify(!0, "Ledger Account Names Case Changed Successfully."),
+            $(".change-account-name-case-modal").modal("toggle"),
+            setTimeout(()=>{
+                window.location.reload()
+            }
+            , 1e3)
+        }
+        ).catch(n=>{
+            t.stop(),
+            Notify(!1, n)
+        }
+        )
+    }
+});
+
+
+
+
+
+
+    });
+
+</script>

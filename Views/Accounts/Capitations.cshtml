@@ -1,0 +1,172 @@
+﻿<div class=row>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading clearfix">
+                                            <h5 class=panel-title>
+                                                Capitation: <span class=text-info id=txtCapitationNo></span>
+                                                <div class="btn-group btn-group-xs pull-right">
+                                                    <button class="btn btn-info dropdown-toggle" type=button data-toggle=dropdown aria-haspopup=true aria-expanded=false>
+                                                        Actions <span class=caret></span>
+                                                    </button>
+                                                    <ul class=dropdown-menu>
+                                                        <li>
+                                                            <a href=javascript:CapitationInvoices()>
+                                                                <span class=action-primary>Process Invoices</span>
+                                                            </a>
+                                                        <li>
+                                                            <a href=javascript:ConsumeSurplusCapitation()>
+                                                                <span class=action-primary>Consume Surplus Capitation</span>
+                                                            </a>
+                                                        <li>
+                                                            <a href=javascript:DeactivateCapitation()>
+                                                                <span class=action-secondary>Deactivate Capitation</span>
+                                                            </a>
+                                                        <li>
+                                                            <a href=javascript:CancelCapitation()>
+                                                                <span class=action-warning>Cancel Capitation</span>
+                                                            </a>
+                                                        <li role=separator class=divider>
+                                                        <li>
+                                                            <a href=javascript:CapitationAnalysisReport()>Capitation Analysis Report</a>
+                                                    </ul>
+                                                </div>
+                                            </h5>
+                                        </div>
+                                        <div class=panel-body>
+                                            <div class=row>
+                                                <form method=post id=CapitationForm>
+                                                    <input id=CapitationID hidden>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Title</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=Title required>
+                                                        </div>
+                                                        <payment-mode data-id=PaymentModeID></payment-mode>
+                                                    </div>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Scheme</small>
+                                                            </label>
+                                                            <select class="form-control input-sm" id=SchemeID style=width:100% required></select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Amount Received</small>
+                                                            </label>
+                                                            <input type=number step=any class="form-control input-sm" id=AmountReceived required>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Period Begin Date</small>
+                                                            </label>
+                                                            <input type=date step=1 class="form-control input-sm" id=BeginDate required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Period End Date</small>
+                                                            </label>
+                                                            <input type=date step=1 class="form-control input-sm" id=EndDate required>
+                                                        </div>
+                                                    </div>
+                                                    <div class=col-sm-3>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Payment Reference</small>
+                                                            </label>
+                                                            <input class="form-control input-sm" id=PaymentReference required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label>
+                                                                <small>Received On</small>
+                                                            </label>
+                                                            <input type=datetime-local step=1 class="form-control input-sm" id=DateTimeReceived required>
+                                                        </div>
+                                                        <div id=updatecapitation hidden>
+                                                            <div class="btn-group btn-group-xs pull-right">
+                                                                <button id=btnupdatecapitation class="btn btn-primary ladda-button" data-style=expand-right data-size=s>Update</button>
+                                                                <a id=btnCreateNewCapitation class="btn btn-primary">New</a>
+                                                            </div>
+                                                        </div>
+                                                        <div id=addcapitation>
+                                                            <button id=btnaddcapitation class="btn btn-primary btn-xs pull-right ladda-button" data-style=expand-right data-size=s>
+                                                                <span class="glyphicon glyphicon-plus"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6Cep8OvizhG3ovMBnLimga1zGz-klOWnVy00ZsqA1RlYOzNh7A5lu_LWvFcBaOoZfdFYT6XWiX_VT0TBT3Wg8ITzfwy0VK4AA2eWeNNHtbY6WLlg2TLML2ysDyFRbf9PcIxEPLTRau5ypa5_-fUsH1drJnw3_UOg42vLoMuH6INjTVA>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class=panel-heading>
+                                            <h6 class=panel-title>View: Capitations</h6>
+                                        </div>
+                                        <div class=table-responsive id=no-more-tables>
+                                            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=capitationstable>
+                                                <thead class=cf>
+                                                    <tr>
+                                                        <th>
+                                                            <strong>No</strong>
+                                                        <th>
+                                                            <strong>Title</strong>
+                                                        <th>
+                                                            <strong>Scheme</strong>
+                                                        <th>
+                                                            <strong>Mode</strong>
+                                                        <th>
+                                                            <strong>Received On</strong>
+                                                        <th>
+                                                            <strong>Start</strong>
+                                                        <th>
+                                                            <strong>End</strong>
+                                                        <th>
+                                                            <strong>Status</strong>
+                                                        <th title="Amount Received">
+                                                            <strong>Received</strong>
+                                                        <th title="Tentative Consumption">
+                                                            <strong>Consumption</strong>
+                                                        <th title="Actual Consumption">
+                                                            <strong>Processed</strong>
+                                                        <th title="Percentage Consumption">
+                                                            <strong>%</strong>
+                                                            <tbody>
+                                            </table>
+                                        </div>
+                                        <div class=panel-footer>
+                                            <div class=row>
+                                                <div class=col-md-12>
+                                                    <form class=form-inline method=post id=FilterForm>
+                                                        <div class=form-group>
+                                                            <label for=status>
+                                                                <small>Status</small>
+                                                            </label>
+                                                            <select type=date class="form-control input-sm" id=status required>
+                                                                <option value=1>Active</option>
+                                                                <option value=2>Deactivated</option>
+                                                                <option value=3>Cancelled</option>
+                                                                <option value=0>All</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateFrom>
+                                                                <small>Between</small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateFrom required>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=dateTo>
+                                                                <small>And</small>
+                                                            </label>
+                                                            <input type=date class="form-control input-sm" id=dateTo required>
+                                                        </div>
+                                                        <button class="btn btn-info btn-xs">View</button>
+                                                        <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6Cep8OvizhG3ovMBnLimga1zGz-klOWnVy00ZsqA1RlYOzNh7A5lu_LWvFcBaOoZfdFYT6XWiX_VT0TBT3Wg8ITzfwy0VK4AA2eWeNNHtbY6WLlg2TLML2ysDyFRbf9PcIxEPLTRau5ypa5_-fUsH1drJnw3_UOg42vLoMuH6INjTVA>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>

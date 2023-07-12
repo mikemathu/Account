@@ -1,0 +1,491 @@
+﻿<div class=row>
+<div class="panel panel-default">
+    <div class="panel-heading clearfix">
+        <h6 class=panel-title>
+            Payment Mode Details
+            <div class="btn-group pull-right">
+                <button class="btn btn-info btn-xs dropdown-toggle" type=button data-toggle=dropdown aria-haspopup=true aria-expanded=false>
+                    Actions <span class=caret></span>
+                </button>
+                <ul class=dropdown-menu>
+                    <li>
+                        <a href=javascript:PaymentModeSelectionLevels()>Payment Mode Selection Levels</a>
+                </ul>
+            </div>
+        </h6>
+    </div>
+    <div class=panel-body>
+        <form method=post id=PaymentModeForm>
+            <div class=row>
+                <div class=col-sm-4>
+                    <input id=PaymentModeID hidden>
+                    <div class=form-group>
+                        <label>
+                            <small>Name</small>
+                        </label>
+                        <input id=Name class="form-control input-sm" required>
+                    </div>
+                    <div class=form-group>
+                        <label>
+                            <small>Sub Account</small>
+                        </label>
+                        <select class="form-control input-sm" id=SubAccountID required></select>
+                    </div>
+                </div>
+                <div class=col-sm-4>
+                    <div class=form-group>
+                        <label class=control-label>
+                            <small>Payment Mode Category</small>
+                        </label>
+                        <div class=input-group>
+                            <select id=PaymentModeCategoryID class="form-control input-sm" required></select>
+                            <span class=input-group-btn>
+                                <a title="Add payment mode category" class="btn btn-link btn-sm" data-toggle=modal data-target=.add-category-modal>
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class=form-group>
+                        <label>
+                            <small>API</small>
+                        </label>
+                        <select class="form-control input-sm" id=API required>
+                            <option value=0>None</option>
+                            <option value=1>MPESA STK Push</option>
+                            <option value=2>IPay</option>
+                            <option value=3>MPESA C2B</option>
+                        </select>
+                    </div>
+                </div>
+                <div class=col-sm-4>
+                    <div class=form-group>
+                        <label>
+                            <small>Selection Level</small>
+                        </label>
+                        <select class="form-control input-sm" style=width:100% id=PaymentModePaymentModeSelectionLevelID>
+                            <option></option>
+                        </select>
+                    </div>
+                    <div class=form-group>
+                        <div class=col-md-6>
+                            <div class=checkbox>
+                                <label class=checkbox>
+                                    <input type=checkbox id=IsDefault>Is Default 
+                                </label>
+                            </div>
+                        </div>
+                        <div class=col-md-6>
+                            <div class=checkbox>
+                                <label class=checkbox>
+                                    <input type=checkbox id=CanBeReceived>Can Be Received 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id=update hidden>
+                        <div class="btn-group btn-group-xs pull-right">
+                            <button id=btnupdatemode class="btn btn-primary ladda-button" data-style=expand-right data-size=s>Update</button>
+                            <a id=btnCreateMode class="btn btn-primary">New</a>
+                        </div>
+                    </div>
+                    <div id=addmode>
+                        <button id=btnaddmode class="btn btn-primary btn-xs pull-right ladda-button" data-style=expand-right data-size=s>
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CerJ1UskZI370vy-KI4OI2AGE36lxs9x2j-xtCNg6L2H9bPPtCxvjdlT6o5l-xrt7SkXk07U8SFSviKMaSX4st6US3Pvw8mjGlbB22mDacvOW0xynNOf52uwtnoYSNep35LO8vqhnf-PczUgcopcE8i4n7pnpsf8IuNKDeWWyTiSMQ>
+        </form>
+    </div>
+    <div class=panel-heading>
+        <h6 class=panel-title>View: Payment Modes</h6>
+    </div>
+    <div class=table-responsive id=no-more-tables>
+        <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=paymentmodestable>
+            <thead class=cf>
+                <tr>
+                    <th>
+                        <strong>No</strong>
+                    <th>
+                        <strong>Name</strong>
+                    <th>
+                        <strong>Sub Account</strong>
+                    <th>
+                        <strong>Category</strong>
+                    <th>
+                        <strong>Is Default</strong>
+                    <th>
+                        <strong>Can Be Received</strong>
+                        <tbody>
+        </table>
+    </div>
+</div>
+</div>
+
+
+
+
+
+<script src=" https://webapps1.chicago.gov/cdn/jQuery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script src="~/js/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/js/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+    $(document).ready(function () {
+           //alert("ready");
+           // $.validator.unobtrusive.parse($("#studentForm"));
+
+
+        function ReloadPage() {
+            LoadAllPaymentModes();
+            GetModeCategories();
+            GetSubAccounts();
+            GetInnerMostPaymentModeSelectionLevels()
+        }
+        function LoadAllPaymentModes() {
+            GetOrPostAsync("GET", "/Accounts/GetPaymentModes/", "", "").then(n => {
+                var i, t;
+                if (modesTable.clear().draw(),
+                    !$.isEmptyObject(n)) {
+                    for (i = "",
+                        t = 0; t < n.length; t++)
+                        i += '<tr id="' + n[t].paymentModeID + '"><td data-title="No">' + n[t].paymentModeID + '<\/td><td data-title="Name">' + n[t].name + '<\/td><td data-title="Sub Account">' + n[t].subAcc + '<\/td><td data-title="Category">' + n[t].category + '<\/td><td data-title="Is Default">' + n[t].isDefault + '<\/td><td data-title="Can Be Received">' + n[t].canBeReceived + "<\/td><\/tr>";
+                    modesTable.rows.add($(i)).draw(!1)
+                }
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function GetPaymentModeDetails(n) {
+            var t = n
+                , i = $("#PaymentModeForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("POST", "/Accounts/GetPaymentModeDetails/", t, i).then(n => {
+                $("#PaymentModeID").val(n.paymentModeID),
+                    $("#PaymentModeCategoryID").val(n.paymentModeCategoryID).trigger("change"),
+                    $("#Name").val(n.name),
+                    $("#SubAccountID").val(n.subAccountID).trigger("change"),
+                    $("#API").val(n.api),
+                    $("#PaymentModePaymentModeSelectionLevelID").val(n.paymentModeSelectionLevelID).select2(),
+                    n.isDefault === 1 ? $("#IsDefault").prop("checked", !0) : $("#IsDefault").prop("checked", !1),
+                    n.canBeReceived === 1 ? $("#CanBeReceived").prop("checked", !0) : $("#CanBeReceived").prop("checked", !1),
+                    $("#addmode").hide(),
+                    $("#update").show()
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function DeletePaymentMode(n) {
+            var t = n
+                , i = $("#PaymentModeForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("POST", "/Accounts/DeletePaymentMode/", t, i).then(() => {
+                Notify(!0, "Payment mode deleted successfully"),
+                    LoadAllPaymentModes()
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function GetSubAccounts() {
+            var t = $("#PaymentModeForm input[name=__RequestVerificationToken]").val()
+                , n = $("#SubAccountID");
+            n.empty();
+            n.append("<option><\/option>");
+            GetOrPostAsync("GET", "/Accounts/GetBankAndCashSubAccounts/", "", t).then(t => {
+                if (!$.isEmptyObject(t)) {
+                    for (let i = 0; i < t.length; i++)
+                        n.append(new Option(t[i].name, t[i].subAccountID));
+                    n.select2()
+                }
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function GetModeCategories() {
+            var t = $("#PaymentModeForm input[name=__RequestVerificationToken]").val()
+                , n = $("#PaymentModeCategoryID");
+            n.empty();
+            n.append("<option><\/option>");
+            GetOrPostAsync("GET", "/Accounts/GetAllPaymentModeCategories/", "", t).then(t => {
+                if (!$.isEmptyObject(t)) {
+                    for (let i = 0; i < t.length; i++)
+                        n.append(new Option(t[i].name, t[i].paymentModeCategoryID));
+                    n.select2()
+                }
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function PaymentModeSelectionLevels() {
+            levelsTable.clear().draw();
+            $("#SelectionLevelForm")[0].reset();
+            $("#PaymentModeSelectionLevelID").val("0");
+            $("#SelectionLevelLevel").trigger("change");
+            GetPaymentModeSelectionLevels();
+            $(".mode-selection-levels-modal").modal("toggle")
+        }
+        function GetPaymentModeSelectionLevels() {
+            var n = $("#SelectionLevelForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("GET", "/Accounts/GetPaymentModeSelectionLevels/", "", n).then(n => {
+                if (levelsTable.clear().draw(),
+                    !$.isEmptyObject(n)) {
+                    var t = "";
+                    for (let i = 0; i < n.length; i++)
+                        t += '<tr id="' + n[i].paymentModeSelectionLevelID + '"><td data-title="No">' + n[i].paymentModeSelectionLevelID + '<\/td><td data-title="Name">' + n[i].name + '<\/td><td data-title="Level">' + n[i].level + '<\/td><td data-title="Parents">' + n[i].parents + '<\/td><td><a href="Javascript:DeletePaymentModeSelectionLevel(' + n[i].paymentModeSelectionLevelID + ');"><span class="glyphicon glyphicon-trash text-danger"><\/span><\/a><\/td><\/tr>';
+                    levelsTable.rows.add($(t)).draw(!1)
+                }
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function GetPaymentModeSelectionLevelsByLevel(n) {
+            var i = n
+                , r = $("#SelectionLevelForm input[name=__RequestVerificationToken]").val()
+                , t = $("#ParentLevelIds");
+            t.empty();
+            GetOrPostAsync("POST", "/Accounts/GetPaymentModeSelectionLevelsByLevel/", i, r).then(n => {
+                if (t.append("<option><\/option>"),
+                    !$.isEmptyObject(n)) {
+                    for (let i = 0; i < n.length; i++)
+                        t.append(new Option(n[i].name, n[i].paymentModeSelectionLevelID));
+                    t.select2()
+                }
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function GetPaymentModeSelectionLevelDetails(n) {
+            var t = n
+                , i = $("#SelectionLevelForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("POST", "/Accounts/GetPaymentModeSelectionLevelDetails/", t, i).then(n => {
+                if ($("#SelectionLevelLevel").val(n.level).trigger("change"),
+                    $("#PaymentModeSelectionLevelID").val(n.paymentModeSelectionLevelID),
+                    $("#SelectionLevelName").val(n.name),
+                    $("#SubAccountID").val(n.level).trigger("change"),
+                    n.level > 1 && n.parents > 0)
+                    var t = setInterval(() => {
+                        let i = $("#ParentLevelIds");
+                        i.has("option").length > 0 && (i.val(n.parents).select2(),
+                            clearInterval(t))
+                    }
+                        , 100);
+                $("#addlevel").hide();
+                $("#updatelevel").show()
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        function DeletePaymentModeSelectionLevel(n) {
+            if (confirm("You are about to delete the selected level. Do you wish to continue?")) {
+                var t = n
+                    , i = $("#SelectionLevelForm input[name=__RequestVerificationToken]").val();
+                GetOrPostAsync("POST", "/Accounts/DeletePaymentModeSelectionLevel/", t, i).then(() => {
+                    Notify(!0, "Payment Mode Selection Level Deleted Successfully"),
+                        GetPaymentModeSelectionLevels()
+                }
+                ).catch(n => Notify(!1, n))
+            }
+        }
+        function GetInnerMostPaymentModeSelectionLevels() {
+            var t = $("#SelectionLevelForm input[name=__RequestVerificationToken]").val()
+                , n = $("#PaymentModePaymentModeSelectionLevelID");
+            n.empty();
+            n.append("<option><\/option>");
+            GetOrPostAsync("GET", "/Accounts/GetInnerMostPaymentModeSelectionLevels/", "", t).then(t => {
+                if (!$.isEmptyObject(t)) {
+                    for (let i = 0; i < t.length; i++)
+                        n.append(new Option(t[i].name, t[i].paymentModeSelectionLevelID));
+                    n.select2()
+                }
+            }
+            ).catch(n => Notify(!1, n))
+        }
+        $(document).ready(function () {
+            modesTable.clear().draw();
+            $("#PaymentModeID").val("0");
+            ReloadPage()
+        });
+        const modesTable = $("#paymentmodestable").DataTable({
+            drawCallback: function () {
+                $.contextMenu("destroy", `#${$(this).prop("id")} tbody tr td`);
+                $.contextMenu({
+                    selector: "#paymentmodestable tbody tr td",
+                    trigger: "right",
+                    delay: 500,
+                    autoHide: !0,
+                    callback: function (n, t) {
+                        var i = t.$trigger[0].parentElement.id, r;
+                        switch (n) {
+                            case "select":
+                                GetPaymentModeDetails(i);
+                                break;
+                            case "delete":
+                                r = confirm("Are You Sure You Want To Delete The Selected Payment Mode?");
+                                r === !0 && DeletePaymentMode(i)
+                        }
+                    },
+                    items: {
+                        select: {
+                            name: "Select"
+                        },
+                        "delete": {
+                            name: "Delete"
+                        }
+                    }
+                })
+            },
+            lengthChange: !1,
+            paging: !1,
+            searching: !0,
+            ordering: !0,
+            bInfo: !1,
+            select: !0,
+            scrollY: "250px",
+            sScrollX: "100%",
+            scrollX: !0
+        });
+        modesTable.on("select", function (n, t, i, r) {
+            if (i === "row") {
+                let t = modesTable.rows(r).data().toArray()
+                    , n = t[0].DT_RowId;
+                n !== undefined && GetPaymentModeDetails(n)
+            }
+        });
+        const levelsTable = $("#levelstable").DataTable({
+            lengthChange: !1,
+            paging: !1,
+            searching: !0,
+            ordering: !1,
+            bInfo: !1,
+            select: !0,
+            scrollY: "40vh",
+            sScrollX: "100%",
+            scrollX: !0
+        });
+        levelsTable.on("select", function (n, t, i, r) {
+            if (i === "row") {
+                let t = levelsTable.rows(r).data().toArray()
+                    , n = t[0].DT_RowId;
+                n !== undefined && GetPaymentModeSelectionLevelDetails(n)
+            }
+        });
+        $("#PaymentModeForm").submit(function (n) {
+            var i, t;
+            n.preventDefault();
+            i = Number($("#PaymentModeID").val());
+            t = Ladda.create(document.querySelector("#btnaddmode"));
+            i > 0 && (t = Ladda.create(document.querySelector("#btnupdatemode")));
+            t.start();
+            t.isLoading();
+            t.setProgress(-1);
+            var r = {
+                PaymentModeID: i,
+                PaymentModeCategoryID: $("#PaymentModeCategoryID").val(),
+                Name: $("#Name").val(),
+                SubAccountID: $("#SubAccountID").val(),
+                API: $("#API").val(),
+                PaymentModeSelectionLevelID: $("#PaymentModePaymentModeSelectionLevelID").val() || 0,
+                IsDefault: $("#IsDefault").is(":checked") ? 1 : 0,
+                CanBeReceived: $("#CanBeReceived").is(":checked") ? 1 : 0
+            }
+                , u = $("#PaymentModeForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("POST", "/Accounts/CreateUpdatePaymentMode/", r, u).then(() => {
+                i > 0 ? Notify(!0, "Payment Mode Updated Successfully") : Notify(!0, "Payment Mode Added Successfully"),
+                    t.stop(),
+                    LoadAllPaymentModes(),
+                    $("#btnCreateMode").click()
+            }
+            ).catch(n => {
+                t.stop(),
+                    Notify(!1, n)
+            }
+            )
+        });
+        $("#btnCreateMode").click(function () {
+            $("#PaymentModeForm")[0].reset();
+            $("#PaymentModeID").val("0");
+            $("#PaymentModeCategoryID").trigger("change");
+            $("#SubAccountID").trigger("change");
+            $("#PaymentModePaymentModeSelectionLevelID").select2();
+            $("#update").hide();
+            $("#addmode").show()
+        });
+        $("#PaymentModeCategoryForm").submit(function (n) {
+            var t, i;
+            n.preventDefault();
+            t = Ladda.create(document.querySelector("#addModeCategory"));
+            t.start();
+            t.isLoading();
+            t.setProgress(-1);
+            i = $("#PaymentModeCategoryName").val();
+            i = i.substr(0, 1).toUpperCase() + i.substr(1);
+            var r = $("#PaymentModeCategoryForm input[name=__RequestVerificationToken]").val()
+                , u = i;
+            GetOrPostAsync("POST", "/Accounts/CreatePaymentModeCategory/", u, r).then(n => {
+                var i = new Option(n.name, n.occupationID, !0, !0);
+                $("#PaymentModeCategoryID").append(i);
+                $("#PaymentModeCategoryForm")[0].reset();
+                t.stop();
+                $(".add-category-modal").modal("toggle")
+            }
+            ).catch(n => {
+                Notify(!1, n),
+                    t.stop()
+            }
+            )
+        });
+        $("#SelectionLevelLevel").on("change", function () {
+            let n = Number($(this).val() || 0)
+                , t = $("#divParents");
+            t.hide();
+            $("#ParentLevelIds").empty().select2();
+            n > 1 && (t.show(),
+                GetPaymentModeSelectionLevelsByLevel(n))
+        });
+        $("#SelectionLevelForm").submit(function (n) {
+            var i, t;
+            n.preventDefault();
+            i = Number($("#PaymentModeSelectionLevelID").val());
+            t = Ladda.create(document.querySelector("#btnaddlevel"));
+            i > 0 && (t = Ladda.create(document.querySelector("#btnupdatelevel")));
+            t.start();
+            t.isLoading();
+            t.setProgress(-1);
+            var r = document.querySelectorAll("#ParentLevelIds option:checked")
+                , u = Array.from(r).map(n => n.value)
+                , f = {
+                    PaymentModeSelectionLevel: {
+                        PaymentModeSelectionLevelID: i,
+                        Name: $("#SelectionLevelName").val(),
+                        Level: $("#SelectionLevelLevel").val()
+                    },
+                    ParentIDs: u
+                }
+                , e = $("#SelectionLevelForm input[name=__RequestVerificationToken]").val();
+            GetOrPostAsync("POST", "/Accounts/CreateUpdatePaymentModeSelectionLevel/", f, e).then(() => {
+                i > 0 ? Notify(!0, "Payment Mode Selection Level Updated Successfully") : Notify(!0, "Payment Mode Selection Level Added Successfully"),
+                    t.stop(),
+                    GetPaymentModeSelectionLevels(),
+                    $("#btnCreateLevel").click()
+            }
+            ).catch(n => {
+                t.stop(),
+                    Notify(!1, n)
+            }
+            )
+        });
+        $("#btnCreateLevel").click(function () {
+            $("#SelectionLevelForm")[0].reset();
+            $("#PaymentModeSelectionLevelID").val("0");
+            $("#SelectionLevelLevel").trigger("change");
+            $("#updatelevel").hide();
+            $("#addlevel").show()
+        });
+        $(".mode-selection-levels-modal").on("hidden.bs.modal", function () {
+            GetInnerMostPaymentModeSelectionLevels()
+        });
+
+
+
+
+
+    });
+
+
+</script>

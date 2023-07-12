@@ -1,0 +1,118 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-Accounts-ADD69351-BCE7-4C52-AB7D-72E133A4331D</UserSecretsId>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+		<PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0-preview.4.23259.3">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0-preview.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Dtos\Cashier Shifts\" />
+	  <Folder Include="Dtos\Journal Vouchers\" />
+	  <Folder Include="Dtos\Cash Transfers\" />
+	  <Folder Include="Dtos\Bank Deposits\" />
+	  <Folder Include="Dtos\Cheques\" />
+	  <Folder Include="Dtos\Bank Reconciliation\" />
+	  <Folder Include="Dtos\Currency Units\" />
+	  <Folder Include="Dtos\Asset Management\" />
+	  <Folder Include="Dtos\Budgeting\" />
+	  <Folder Include="Dtos\Capitations\" />
+	  <Folder Include="Dtos\Opening Balances\" />
+	  <Folder Include="Dtos\Taxes\" />
+	  <Folder Include="Models\Asset Management\" />
+	  <Folder Include="Models\Bank Deposits\" />
+	  <Folder Include="Models\Bank Reconciliation\" />
+	  <Folder Include="Models\Budgeting\" />
+	  <Folder Include="Models\Capitations\" />
+	  <Folder Include="Models\Cash Transfers\" />
+	  <Folder Include="Models\Cashier Shifts\" />
+	  <Folder Include="Models\Cheques\" />
+	  <Folder Include="Models\Currency Units\" />
+	  <Folder Include="Models\Journal Vouchers\" />
+	  <Folder Include="Models\Opening Balances\" />
+	  <Folder Include="Models\Taxes\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="Views\Accounts\Banks.cshtml" />
+	  <None Include="Views\Accounts\CashierShifts.cshtml" />
+	  <None Include="Views\Accounts\GeneralLedgerAccounts.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_AddAccountClass.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_Barcode.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_BeginCashierShift.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_CashFlowCategories.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_CreateOpeningStock.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_Expiredbatches.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_ImportProducts.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_ItemCategory.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_ItemClass.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_ReservedItems.cshtml" />
+	  <None Include="Views\Accounts\PartialViews\_TransferSubAccountBalance.cshtml" />
+	  <None Include="Views\Accounts\PaymentModes.cshtml" />
+	  <None Include="Views\Home\Index.cshtml" />
+	  <None Include="Views\Home\Privacy.cshtml" />
+	  <None Include="Views\Shared\Error.cshtml" />
+	  <None Include="Views\Shared\_Layout.cshtml" />
+	  <None Include="Views\Shared\_LoginPartial.cshtml" />
+	  <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+	  <None Include="Views\_ViewImports.cshtml" />
+	  <None Include="Views\_ViewStart.cshtml" />
+	  <None Include="wwwroot\js\site.js" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.rtl.min.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.min.css.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+	  <None Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+	  <None Include="wwwroot\lib\bootstrap\LICENSE" />
+	  <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+	  <None Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+	  <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+	  <None Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+	  <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+	  <None Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+	  <None Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+	  <None Include="wwwroot\lib\jquery\dist\jquery.js" />
+	  <None Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+	  <None Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+	</ItemGroup>
+
+</Project>

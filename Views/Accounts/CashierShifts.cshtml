@@ -1,0 +1,638 @@
+﻿<div class=row>
+                               
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading clearfix">
+                                            <h6 class=panel-title>
+                                                Cashier Shift Details
+                                                <div class="btn-group pull-right">
+                                                    <button class="btn btn-info btn-xs dropdown-toggle" type=button data-toggle=dropdown aria-haspopup=true aria-expanded=false>
+                                                        Actions <span class=caret></span>
+                                                    </button>
+                                                    <ul class=dropdown-menu>
+                                                        <li>
+                                                            <a href=javascript:EndShift()>End Shift</a>
+                                                        <li>
+                                                            <a href=javascript:ShiftReceipts()>Shift Receipts</a>
+                                                        <li role=separator class=divider>
+                                                        <li>
+                                                            <a href=javascript:ShiftReport()>Cashier Shift Summary Report</a>
+                                                        <li>
+                                                            <a href=javascript:ShiftReceiptsReport()>Cashier Shift(s) Receipts Summary Report</a>
+                                                    </ul>
+                                                </div>
+                                            </h6>
+                                        </div>
+                                        <div class=panel-body>
+                                            <form method=post id=PageForm>
+                                                <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6Ceq4UvuevU95o8FP_9Kd1Ys4u29-QnVO8Yt9mvccVE4L7zzyL6rtCiwTb0Mk5GvArjxLQTxyz0zbC96u5NBxVWj4QioPxItFSPgZOLgoRmlSidM9OW0lp0YgiRa55sRis_GUFv0-Axh92hgrojFVbDvKibFjb77yv_9IWUB87rbFzw>
+                                            </form>
+                                            <div class=row>
+                                                <div class=col-sm-4>
+                                                    <div class="row no-gutter">
+                                                        <div class=col-sm-6>
+                                                            <label>
+                                                                <small>Shift ID: </small>
+                                                            </label>
+                                                        </div>
+                                                        <div class=col-sm-6>
+                                                            <small>
+                                                                <span class=text-info id=txtshiftid></span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row no-gutter">
+                                                        <div class=col-sm-6>
+                                                            <label>
+                                                                <small>User: </small>
+                                                            </label>
+                                                        </div>
+                                                        <div class=col-sm-6>
+                                                            <small>
+                                                                <span class=text-info id=txtuser></span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class=col-sm-4>
+                                                    <div class="row no-gutter">
+                                                        <div class=col-sm-5>
+                                                            <label>
+                                                                <small>Beginning: </small>
+                                                            </label>
+                                                        </div>
+                                                        <div class=col-sm-7>
+                                                            <small>
+                                                                <span class=text-info id=txtBeginning></span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row no-gutter">
+                                                        <div class=col-sm-5>
+                                                            <label>
+                                                                <small>Ending: </small>
+                                                            </label>
+                                                        </div>
+                                                        <div class=col-sm-7>
+                                                            <small>
+                                                                <span class=text-info id=txtEnding></span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class=col-sm-4>
+                                                    <div class="row no-gutter">
+                                                        <div class=col-sm-5>
+                                                            <label>
+                                                                <small>Opening Balance: </small>
+                                                            </label>
+                                                        </div>
+                                                        <div class=col-sm-7>
+                                                            <small>
+                                                                <span class=text-info id=txtOpeningBal></span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row no-gutter">
+                                                        <div class=col-sm-5>
+                                                            <label>
+                                                                <small>Status: </small>
+                                                            </label>
+                                                        </div>
+                                                        <div class=col-sm-7>
+                                                            <small>
+                                                                <span class=text-info id=txtStatus></span>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=panel-heading>
+                                            <h6 class=panel-title>View: Shifts</h6>
+                                        </div>
+                                        <div class=table-responsive id=no-more-tables>
+                                            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=shiftstable>
+                                                <thead class=cf>
+                                                    <tr>
+                                                        <th>
+                                                            <input class=selectAll name=select_all value=1 type=checkbox>
+                                                            <th>
+                                                                <strong>Shift ID</strong>
+                                                            <th>
+                                                                <strong>Beginning Date Time</strong>
+                                                            <th>
+                                                                <strong>Ending Date Time</strong>
+                                                            <th>
+                                                                <strong>User</strong>
+                                                                <tbody>
+                                            </table>
+                                        </div>
+                                        <div class=panel-footer>
+                                            <div class=row>
+                                                <div class=col-md-12>
+                                                    <form class=form-inline method=post id=FilterForm>
+                                                        <div class=form-group>
+                                                            <label for=flag>View</label>
+                                                            <select class="form-control input-sm" id=flag>
+                                                                <option value=1>My Active Shift</option>
+                                                                <option value=2>My Inactive Shifts</option>
+                                                                <option value=3>All Active Shifts</option>
+                                                                <option value=4>All Inactive Shifts</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=from>From</label>
+                                                            <input type=date class="form-control input-sm" id=dateFrom>
+                                                        </div>
+                                                        <div class=form-group>
+                                                            <label for=to>To</label>
+                                                            <input type=date class="form-control input-sm" id=dateTo>
+                                                        </div>
+                                                        <button class="btn btn-info btn-xs" id=btnfiltershifts>View</button>
+                                                        <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6Ceq4UvuevU95o8FP_9Kd1Ys4u29-QnVO8Yt9mvccVE4L7zzyL6rtCiwTb0Mk5GvArjxLQTxyz0zbC96u5NBxVWj4QioPxItFSPgZOLgoRmlSidM9OW0lp0YgiRa55sRis_GUFv0-Axh92hgrojFVbDvKibFjb77yv_9IWUB87rbFzw>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <div class=col-md-2></div>
+                            </div>
+
+@await Html.PartialAsync("./PartialViews/_BeginCashierShift")
+
+
+                                                        <script src=" https://webapps1.chicago.gov/cdn/jQuery-3.4.1/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script src="~/js/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/js/jquery.validate.unobtrusive.min.js" integrity="sha512-xq+Vm8jC94ynOikewaQXMEkJIOBp7iArs3IhFWSWdRT3Pq8wFz46p+ZDFAR7kHnSFf+zUv52B3prRYnbDRdgog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+    $(document).ready(function () {
+        //alert("ready");
+       // $.validator.unobtrusive.parse($("#studentForm"));
+
+
+       function ReloadPage() {
+    FilterShifts();
+    GetCurrencyUnits();
+    LoadCashSubAccounts();
+    GetPaymentModes()
+}
+function updateDataTableSelectAllCtrl(n) {
+    var i = n.table().node()
+      , u = $('tbody input[type="checkbox"]', i)
+      , r = $('tbody input[type="checkbox"]:checked', i)
+      , t = $('thead input[name="select_all"]', i).get(0);
+    r.length === 0 ? (t.checked = !1,
+    "indeterminate"in t && ($(".selectAll").prop("indeterminate", !1),
+    $(".selectAll").prop("checked", !1))) : r.length === u.length ? (t.checked = !0,
+    "indeterminate"in t && ($(".selectAll").prop("indeterminate", !1),
+    $(".selectAll").prop("checked", !0))) : (t.checked = !0,
+    "indeterminate"in t && $(".selectAll").prop("indeterminate", !0))
+}
+function calculate() {
+    var n = parseFloat($("#CurrencyUnit").find(":selected").data("multiplicand"))
+      , t = parseFloat($("#count").val())
+      , i = n * t;
+    $("#total").val(i)
+}
+function FilterShifts() {
+    var n = {
+        Flag: $("#flag").val(),
+        DateFrom: $("#dateFrom").val(),
+        DateTo: $("#dateTo").val()
+    }
+      , t = $("#FilterForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/FilterShifts/", n, t).then(n=>{
+        var i, t;
+        if (shiftTable.clear().draw(),
+        !$.isEmptyObject(n)) {
+            for (i = "",
+            t = 0; t < n.length; t++)
+                i += n[t].isActive === 1 ? '<tr style="color: green;" id="' + n[t].shiftID + '"><td class="dt-body-center"><input type="checkbox" id="' + n[t].shiftID + '"/><\/td><td data-title="Shift ID">' + n[t].shiftID + '<\/td><td data-title="Beginning Date Time">' + formatDateTime(n[t].beginDate) + '<\/td><td data-title="Ending Date Time">' + formatDateTime(n[t].endDate) + '<\/td><td data-title="User">' + n[t].user + "<\/td><\/tr>" : '<tr id="' + n[t].shiftID + '"><td class="dt-body-center"><input type="checkbox" id="' + n[t].shiftID + '"/><\/td><td data-title="Shift ID">' + n[t].shiftID + '<\/td><td data-title="Beginning Date Time">' + formatDateTime(n[t].beginDate) + '<\/td><td data-title="Ending Date Time">' + formatDateTime(n[t].endDate) + '<\/td><td data-title="User">' + n[t].user + "<\/td><\/tr>";
+            shiftTable.rows.add($(i)).draw(!1)
+        }
+    }
+    ).catch(n=>{
+        $("input[name=filterFlag][value='1']").prop("checked", !0).trigger("change"),
+        Notify(!1, n)
+    }
+    )
+}
+function GetPaymentModes() {
+    var n = $("#PaymentModeId");
+    n.empty();
+    n.append('<option value="0">--All Payment Modes--<\/option>');
+    GetOrPostAsync("GET", "/Billing/GetAllPaymentModes/", "", "").then(t=>{
+        if (!$.isEmptyObject(t))
+            for (let i = 0; i < t.length; i++) {
+                let r = `<option value='${t[i].paymentModeID}'>${t[i].name}</option>`;
+                n.append(r)
+            }
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function GetCurrencyUnits() {
+    var n = $("#CurrencyUnit");
+    n.empty();
+    n.append("<option><\/option>");
+    GetOrPostAsync("GET", "/Accounts/GetCurrencyUnits/", "", "").then(t=>{
+        var i, r;
+        if (!$.isEmptyObject(t))
+            for (i = 0; i < t.length; i++)
+                r = '<option data-multiplicand="' + t[i].multiplicand + '" value="' + t[i].currencyUnitID + '">' + t[i].name + "<\/option>",
+                n.append(r)
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function GetShiftBalances(n) {
+    var t = n
+      , i = $("#CurrencyUnitForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/GetShiftBalances/", t, i).then(n=>{
+        var i, r, t;
+        if (balancesTable.clear().draw(),
+        i = 0,
+        !$.isEmptyObject(n)) {
+            for (r = "",
+            t = 0; t < n.length; t++)
+                r += '<tr id="' + n[t].id + '"><td data-title="Currency Unit">' + n[t].unit + '<\/td><td data-title="Count">' + n[t].count + '<\/td><td data-title="Total">' + n[t].amount + "<\/td><\/tr>",
+                i += n[t].amount;
+            balancesTable.rows.add($(r)).draw(!1)
+        }
+        $("#txtTotals").text(i);
+        $("#Amount").val(i)
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function DeleteShiftBalance(n) {
+    var t = n
+      , i = $("#EndShiftForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/DeleteShiftBalance/", t, i).then(()=>{
+        Notify(!0, "Balance deleted successfully"),
+        GetShiftBalances($("#shiftID").text())
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function EndShift(n=0) {
+    if (n === 0 && (n = Number($("#txtshiftid").text()),
+    n === 0 || isNaN(n))) {
+        Notify(!1, "First select a shift");
+        return
+    }
+    GetShiftBalances(n);
+    $("#shiftID").text(n);
+    $(".balances-modal").modal("toggle")
+}
+function GetShiftDetails(n) {
+    var t = n
+      , i = $("#EndShiftForm input[name=__RequestVerificationToken]").val();
+    ClearData();
+    GetOrPostAsync("POST", "/Accounts/GetShiftDetails/", t, i).then(n=>{
+        $.isEmptyObject(n) || ($("#txtshiftid").text(n.endOfShiftReconciliationID),
+        $("#txtuser").text(n.user),
+        $("#txtBeginning").text(formatDateTime(n.beginDateTime)),
+        $("#txtEnding").text(formatDateTime(n.endDateTime)),
+        $("#txtOpeningBal").text(formatCurrency(n.openingBalance)),
+        $("#txtStatus").text(n.status))
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function ShiftReport(n=0) {
+    if (n === 0 && (n = Number($("#txtshiftid").text()),
+    n === 0 || isNaN(n))) {
+        Notify(!1, "First select a shift");
+        return
+    }
+    $("#ReportIframe").attr("src", `/Accounts/CashierShiftSummaryReport/?shiftid=${n}`);
+    $(".report-modal").modal("toggle")
+}
+function ShiftReceiptsReport() {
+    if (selectedids.length === 0) {
+        Notify(!1, "Make sure you tick atleast one cashier shift.");
+        return
+    }
+    $("#DateTimeFrom").val((new Date).toLocalISOString().slice(0, 16));
+    $("#DateTimeTo").val((new Date).toLocalISOString().slice(0, 16));
+    $(".shift-receipts-filter-modal").modal("toggle")
+}
+function LoadCashSubAccounts() {
+    var t = $("#EndShiftForm input[name=__RequestVerificationToken]").val()
+      , n = $("#DestSubAccount");
+    n.empty();
+    n.append("<option><\/option>");
+    GetOrPostAsync("GET", "/Accounts/GetCashSubAccounts/", "", t).then(t=>{
+        if (!$.isEmptyObject(t))
+            for (var i = 0; i < t.length; i++) {
+                let r = new Option(t[i].name,t[i].subAccountID);
+                n.append(r)
+            }
+    }
+    ).catch(n=>Notify(!1, n))
+}
+function ShiftReceipts() {
+    let n = Number($("#txtshiftid").text() || 0);
+    if (n <= 0) {
+        Notify(!1, "Make sure to select a shift first.");
+        return
+    }
+    FilterCashierShiftReceipts();
+    $("#txtShiftOwner").text($("#txtuser").text());
+    $(".shift-receipts-modal").modal("toggle")
+}
+function FilterCashierShiftReceipts() {
+    var t = {
+        ShiftID: $("#txtshiftid").text() || 0,
+        PaymentModeID: $("#PaymentModeId").val()
+    }
+      , i = $("#PageForm input[name=__RequestVerificationToken]").val()
+      , n = 0;
+    GetOrPostAsync("POST", "/Accounts/FilterCashierShiftReceipts/", t, i).then(t=>{
+        if (shiftreceiptsTable.clear().draw(),
+        !$.isEmptyObject(t)) {
+            var i = "";
+            for (let r = 0; r < t.length; r++)
+                i += '<tr id="' + t[r].receipt.issuedReceiptID + '"><td data-title="Receipt No">' + t[r].receipt.issuedReceiptID + '<\/td><td data-title="Created On">' + formatDateTime(t[r].receipt.dateTimeIssued) + '<\/td><td data-title="Issued To">' + t[r].receipt.issuedTo + '<\/td><td data-title="Issued By">' + t[r].mode + '<\/td><td data-title="Amount Paid" class="currency">' + formatCurrency(t[r].receipt.amountPaid) + '<\/td><td><a href="Javascript:PrintReceipt(' + t[r].receipt.issuedReceiptID + ')"><i class="fas fa-print"><\/i><\/a><\/td><\/tr>',
+                n += t[r].receipt.amountPaid;
+            shiftreceiptsTable.rows.add($(i)).draw(!1)
+        }
+        $("#txtTotAmntPaid").text(formatCurrency(n))
+    }
+    ).catch(n=>Notify(n))
+}
+function PrintReceipt(n) {
+    $("#ReportIframe").attr("src", `/Billing/ReceiptReport/?receiptID=${n}`);
+    $(".report-modal").modal("toggle")
+}
+function ClearData() {
+    $("#txtshiftid").text("");
+    $("#txtuser").text("");
+    $("#txtBeginning").text("");
+    $("#txtEnding").text("");
+    $("#txtOpeningBal").text("");
+    $("#txtStatus").text("")
+}
+var selectedids, balancesTable;
+$(document).ready(function() {
+    shiftTable.clear().draw();
+    shiftreceiptsTable.clear().draw();
+    $("#dateFrom").val((new Date).toLocalISOString().slice(0, 10));
+    $("#dateTo").val((new Date).toLocalISOString().slice(0, 10));
+    ReloadPage()
+});
+const shiftTable = $("#shiftstable").DataTable({
+    drawCallback: function() {
+        $.contextMenu("destroy", `#${$(this).prop("id")} tbody tr td`);
+        $.contextMenu({
+            selector: "#shiftstable tbody tr td",
+            trigger: "right",
+            delay: 500,
+            autoHide: !0,
+            callback: function(n, t) {
+                var i = t.$trigger[0].parentElement.id;
+                switch (n) {
+                case "select":
+                    GetShiftDetails(i);
+                    break;
+                case "endshift":
+                    EndShift(i);
+                    break;
+                case "report-cashier-shift":
+                    ShiftReport(i);
+                    break;
+                case "report-my-shift":
+                    ShiftReceiptsReport()
+                }
+            },
+            items: {
+                select: {
+                    name: "Select"
+                },
+                endshift: {
+                    name: "End Shift"
+                },
+                sep1: "---------",
+                reports: {
+                    name: "Reports",
+                    items: {
+                        "report-cashier-shift": {
+                            name: "Cashier Shift Summary Report"
+                        },
+                        "report-my-shift": {
+                            name: "Cashier Shift Receipts Summary Report"
+                        }
+                    }
+                }
+            }
+        })
+    },
+    columnDefs: [{
+        targets: 0,
+        searchable: !1,
+        orderable: !1,
+        width: "1%",
+        className: "dt-body-center",
+        render: function() {
+            return '<input type="checkbox">'
+        }
+    }],
+    paging: !1,
+    searching: !0,
+    ordering: !0,
+    bInfo: !0,
+    select: !0,
+    scrollY: "38vh",
+    sScrollX: "100%",
+    scrollX: !0,
+    order: [1, "asc"]
+});
+shiftTable.on("select", function(n, t, i, r) {
+    if (i === "row") {
+        let t = shiftTable.rows(r).data().toArray()
+          , n = t[0].DT_RowId;
+        n !== undefined && GetShiftDetails(n)
+    }
+});
+shiftTable.on("dblclick", function(n) {
+    let t = $(n.target.parentElement).prop("id");
+    EndShift(t)
+});
+const shiftreceiptsTable = $("#shiftreceiptstable").DataTable({
+    paging: !1,
+    searching: !0,
+    ordering: !0,
+    bInfo: !0,
+    scrollY: "58vh",
+    sScrollX: "100%",
+    scrollX: !0
+});
+selectedids = [];
+$("#shiftstable tbody").on("click", 'input[type="checkbox"]', function(n) {
+    var t = $(this).closest("tr");
+    selectedids = [];
+    $("#shiftstable input[type=checkbox]:checked").each(function() {
+        let n = $(this).closest("tr").attr("id");
+        selectedids.push(n)
+    });
+    this.checked ? t.addClass("selected") : t.removeClass("selected");
+    updateDataTableSelectAllCtrl(shiftTable);
+    n.stopPropagation()
+});
+$('thead input[name="select_all"]', shiftTable.table().container()).on("click", function(n) {
+    this.checked ? $('#shiftstable tbody input[type="checkbox"]:not(:checked)').trigger("click") : $('#shiftstable tbody input[type="checkbox"]:checked').trigger("click");
+    n.stopPropagation()
+});
+shiftTable.on("draw", function() {
+    updateDataTableSelectAllCtrl(shiftTable)
+});
+balancesTable = $("#cashboxtotalstable").DataTable({
+    drawCallback: function() {
+        $.contextMenu("destroy", `#${$(this).prop("id")} tbody tr td`);
+        $.contextMenu({
+            selector: "#cashboxtotalstable tbody tr td",
+            trigger: "right",
+            delay: 500,
+            autoHide: !0,
+            callback: function(n, t) {
+                var i = t.$trigger[0].parentElement.id;
+                switch (n) {
+                case "delete":
+                    confirm("You are about to delete the selected balance. Do you wish to continue?") && DeleteShiftBalance(i)
+                }
+            },
+            items: {
+                "delete": {
+                    name: "Delete"
+                }
+            }
+        })
+    },
+    paging: !1,
+    searching: !1,
+    ordering: !1,
+    bInfo: !1,
+    scrollY: "200px",
+    sScrollX: "100%",
+    scrollX: !0
+});
+$(document).ready(function() {
+    $(document).on("change", "#CurrencyUnit", calculate)
+});
+$(document).ready(function() {
+    $(document).on("change, keyup", "#count", calculate)
+});
+$("#flag").change(function() {
+    FilterShifts()
+});
+$("#FilterForm").submit(function(n) {
+    n.preventDefault();
+    FilterShifts()
+});
+$("#CurrencyUnitForm").submit(function(n) {
+    var t;
+    n.preventDefault();
+    t = Ladda.create(document.querySelector("#btnAdd"));
+    t.start();
+    t.isLoading();
+    t.setProgress(-1);
+    var i = {
+        EndOfShiftReconciliationID: $("#shiftID").text(),
+        CurrencyUnitID: $("#CurrencyUnit").val(),
+        Count: $("#count").val(),
+        Amount: $("#total").val()
+    }
+      , r = $("#CurrencyUnitForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/AddCurrencyUnitBalances/", i, r).then(()=>{
+        Notify(!0, "Balance Added Successfully"),
+        GetShiftBalances(i.EndOfShiftReconciliationID),
+        t.stop(),
+        $("#CurrencyUnitForm")[0].reset()
+    }
+    ).catch(n=>{
+        t.stop(),
+        Notify(!1, n)
+    }
+    )
+});
+$("#EndShiftForm").submit(function(n) {
+    var t;
+    n.preventDefault();
+    t = Ladda.create(document.querySelector("#btnEndShift"));
+    t.start();
+    t.isLoading();
+    t.setProgress(-1);
+    var i = $("#TransferBalance").is(":checked")
+      , r = i ? {
+        ShiftID: $("#shiftID").text(),
+        Explanation: $("#Explanation").val() || "",
+        IsTransferring: 1,
+        CashTransfer: {
+            DestSubAccountID: $("#DestSubAccount").val(),
+            Description: $("#Description").val(),
+            Amount: $("#Amount").val(),
+            AmountInWords: $("#AmountInWords").val(),
+            ReceivedBy: $("#ReceivedBy").val()
+        }
+    } : {
+        ShiftID: $("#shiftID").text(),
+        Explanation: $("#Explanation").val() || ""
+    }
+      , u = $("#EndShiftForm input[name=__RequestVerificationToken]").val();
+    GetOrPostAsync("POST", "/Accounts/EndCashierShift/", r, u).then(()=>{
+        t.stop(),
+        Notify(!0, "Shift Ended Successfully"),
+        $(".finalize-shift-modal").modal("toggle"),
+        $("#shiftID").text(""),
+        $("#Explanation").val(""),
+        $(".fade balances-modal").modal("toggle"),
+        FilterShifts(),
+        i || $(".prompt-user-modal").modal("toggle")
+    }
+    ).catch(n=>{
+        t.stop(),
+        Notify(!1, n)
+    }
+    )
+});
+$("input:radio[name=radioTransfer]").change(function() {
+    var n = Number($("input[name=radioTransfer]:checked").val());
+    n === 1 ? window.location.href = "/Accounts/CashTransfers/" : n === 2 ? window.location.href = "/Accounts/BankDeposits/" : $(".prompt-user-modal").modal("toggle")
+});
+$("#ShiftReceiptsFilterForm").submit(function(n) {
+    n.preventDefault();
+    $(".shift-receipts-filter-modal").modal("toggle");
+    $("#ReportIframe").attr("src", `/Accounts/CashierShiftReceiptsSummaryReport/?shiftids=${selectedids.join(",")}&DateTimeFrom=${$("#DateTimeFrom").val()}&DateTimeTo=${$("#DateTimeTo").val()}`);
+    $(".report-modal").modal("toggle")
+});
+$("#TransferBalance").on("change", function() {
+    var n = $(this);
+    n.is(":checked") ? ($("#DestSubAccount").prop("required", !0),
+    $("#DestSubAccount").prop("disabled", !1),
+    $("#Description").prop("required", !0),
+    $("#Description").prop("readonly", !1),
+    $("#Amount").prop("required", !0),
+    $("#Amount").prop("readonly", !1),
+    $("#AmountInWords").prop("required", !0),
+    $("#AmountInWords").prop("readonly", !1),
+    $("#ReceivedBy").prop("required", !0),
+    $("#ReceivedBy").prop("readonly", !1)) : ($("#DestSubAccount").prop("required", !1),
+    $("#DestSubAccount").prop("disabled", !0),
+    $("#Description").prop("required", !1),
+    $("#Description").prop("readonly", !0),
+    $("#Amount").prop("required", !1),
+    $("#Amount").prop("readonly", !0),
+    $("#AmountInWords").prop("required", !1),
+    $("#AmountInWords").prop("readonly", !0),
+    $("#ReceivedBy").prop("required", !1),
+    $("#ReceivedBy").prop("readonly", !0))
+});
+$("#PaymentModeId").on("change", FilterCashierShiftReceipts);
+
+
+
+         });
+
+
+</script>
