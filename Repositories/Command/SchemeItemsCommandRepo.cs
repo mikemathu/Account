@@ -1,6 +1,8 @@
-﻿namespace Accounts.Repositories.CommandRepo
+﻿using Accounts.Services.Command;
+
+namespace Accounts.Repositories.CommandRepo
 {
-    public class SchemeItemsCommandRepo
+    public class SchemeItemsCommandRepo : ISchemeItemsCommand
     {
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace Accounts.Repositories.Command
+﻿using Accounts.Services.Command;
+
+namespace Accounts.Repositories.Command
 {
-    public class AssetManagementCommandRepo
+    public class AssetManagementCommandRepo : IAssetManagementCommand
     {
     }
 }

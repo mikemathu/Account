@@ -35,7 +35,7 @@ namespace Accounts.Controllers
         private readonly IJournalVouchersQuery _journalVouchersQuery;
         private readonly IOpeningBalancesQuery _openingBalancesQuery;
         private readonly IPaymentModesQuery _paymentModesQuery;
-        private readonly ISchemesItemsQuery _schemesItemsQuery;
+        private readonly ISchemeItemsQuery _schemesItemsQuery;
         private readonly ISchemesQuery _schemesQuery;
         private readonly ITaxesQuery _taxesQuery;
 
@@ -50,13 +50,13 @@ namespace Accounts.Controllers
         private readonly ICashTransfersCommand _cashTransfersCommand;
         private readonly IChequesCommand _chequesCommand;
         private readonly ICurrencyUnitsCommand _currencyUnitsCommand;
-        private readonly IFiscalPeriodsCommands _fiscalPeriodsCommands;
+        private readonly IFiscalPeriodsCommand _fiscalPeriodsCommands;
         private readonly IGeneralLedgerAccountsCommand _generalLedgerAccountsCommand;
         private readonly IJournalVouchersCommand _journalVouchersCommand;
         private readonly IOpeningBalancesCommand _openingBalancesCommand;
         private readonly IPaymentModesCommand _paymentModesCommand;
         private readonly ISchemesCommand _schemesCommand;
-        private readonly ISchemesItemsCommand _schemesItemsCommand;
+        private readonly ISchemeItemsCommand _schemesItemsCommand;
         private readonly ITaxesCommand _taxesCommand;   
         public AccountsController(
             IMapper mapper,
@@ -76,7 +76,7 @@ namespace Accounts.Controllers
             IJournalVouchersQuery journalVouchersQuery,
             IOpeningBalancesQuery openingBalancesQuery,
             IPaymentModesQuery paymentModesQuery,
-            ISchemesItemsQuery schemesItemsQuery,
+            ISchemeItemsQuery schemesItemsQuery,
             ISchemesQuery schemesQuery,
             ITaxesQuery taxesQuery,
              //Commands
@@ -90,13 +90,13 @@ namespace Accounts.Controllers
              ICashTransfersCommand cashTransfersCommand,
              IChequesCommand chequesCommand,
              ICurrencyUnitsCommand currencyUnitsCommand,
-             IFiscalPeriodsCommands fiscalPeriodsCommands,
+             IFiscalPeriodsCommand fiscalPeriodsCommands,
              IGeneralLedgerAccountsCommand generalLedgerAccountsCommand,
              IJournalVouchersCommand journalVouchersCommand,
              IOpeningBalancesCommand openingBalancesCommand,
              IPaymentModesCommand paymentModesCommand,
              ISchemesCommand schemesCommand,
-             ISchemesItemsCommand schemesItemsCommand,
+             ISchemeItemsCommand schemesItemsCommand,
              ITaxesCommand taxesCommand)
         {
             _mapper = mapper;
@@ -140,9 +140,17 @@ namespace Accounts.Controllers
             _taxesCommand = taxesCommand;
         }
 
-        //Fiscal Periods
-       
-        //Ledger Accounts
+        /// <summary>
+        /// Fiscal Periods
+        /// </summary>
+        /// <returns></returns>
+
+
+        /// <summary>
+        /// FLedger Accounts
+        /// </summary>
+        /// <returns></returns>
+
         public IActionResult GeneralLedgerAccounts()
         {
             return View();
@@ -362,11 +370,9 @@ namespace Accounts.Controllers
 
 
         /// <summary>
-        /// PaymentModes
+        /// Payment Modes
         /// </summary>
         /// <returns></returns>
-
-
         public IActionResult PaymentModes()
         {
             return View();
@@ -430,26 +436,39 @@ namespace Accounts.Controllers
             return View();
         }
 
-        //Banks
+        
+        /// <summary>
+        /// Banks
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Banks()
         {
             return View();
         }
 
 
-        //Cashier Shifts
+        /// <summary>
+        /// Cashier Shifts
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CashierShifts()
         {
             return View();
         }
 
-        //Journal Voucher
+        /// <summary>
+        /// Journal Voucher
+        /// </summary>
+        /// <returns></returns>
         public IActionResult JournalVouchers()
         {
             return View();
         }
 
-        //Taxes
+        /// <summary>
+        /// Taxes
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Taxes()
         {
             return View();
@@ -464,51 +483,81 @@ namespace Accounts.Controllers
 
 
 
-        //Cash Transfer
+        /// <summary>
+        /// Cash Transfer
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CashTransfer()
         {
             return View();
         }
 
-        //Bank Deposit
+        /// <summary>
+        /// Bank Deposits
+        /// </summary>
+        /// <returns></returns>
         public IActionResult BankDeposit()
         {
             return View();
         }
-        //Cheques
+
+        /// <summary>
+        /// Cheques
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Cheques()
         {
             return View();
         }
-        //BankReconciliation
+
+        /// <summary>
+        /// Bank Reconciliation
+        /// </summary>
+        /// <returns></returns>
         public IActionResult BankReconciliation()
         {
             return View();
         }
 
-        //CurrencyUnits
+        /// <summary>
+        /// Currency Units
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CurrencyUnits()
         {
             return View();
         }
 
-        //Asset Management
+        /// <summary>
+        /// Asset Management
+        /// </summary>
+        /// <returns></returns>
         public IActionResult FixedAssetManagement()
         {
             return View();
         }
-        //Budgeting
+        /// <summary>
+        /// Budgeting
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Budgeting()
         {
             return View();
         }
-        //Capitations
+
+        /// <summary>
+        /// Capitations
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Capitations()
         {
             return View();
         }
 
-        //Opening Balances
+        /// <summary>
+        /// Opening Balances
+        /// </summary>
+        /// <returns></returns>
         public IActionResult OpeningBalances()
         {
             return View();

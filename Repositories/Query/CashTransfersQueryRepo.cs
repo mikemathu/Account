@@ -1,6 +1,9 @@
-﻿namespace Accounts.Repositories.Query
+﻿using Accounts.Services.Query;
+
+namespace Accounts.Repositories.Query
 {
-    public class CashTransfersCommandRepo
+    public class CashTransfersQueryRepo : ICashTransfersQuery
     {
+
     }
 }

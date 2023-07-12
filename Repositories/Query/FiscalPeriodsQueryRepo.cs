@@ -4,14 +4,14 @@ using Npgsql;
 
 namespace Account_Module.Repositories.Query
 {
-    public class FiscalPeriodQueryRepo : IFiscalPeriodsQuery
+    public class FiscalPeriodsQueryRepo : IFiscalPeriodsQuery
     {
         private const string _fiscalPeriodsTable = "FiscalPeriods";
         private const string _accountDetailsTable = "AccountsDetails";
         private const string _subAccountDetailsTable = "SubAccountDetails";
         private IConfiguration _config;
         private NpgsqlConnection _connection;
-        public FiscalPeriodQueryRepo(IConfiguration config)
+        public FiscalPeriodsQueryRepo(IConfiguration config)
         {
             _config = config;
         }

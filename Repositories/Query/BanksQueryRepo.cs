@@ -1,6 +1,8 @@
-﻿namespace Accounts.Repositories.Query
+﻿using Accounts.Services.Query;
+
+namespace Accounts.Repositories.Query
 {
-    public class BanksCommandRepo
+    public class BanksQueryRepo : IBanksQuery
     {
     }
 }

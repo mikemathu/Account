@@ -3,7 +3,7 @@ using Accounts.Models.VM;
 
 namespace Accounts.Services.Command
 {
-    public interface IFiscalPeriodsCommands
+    public interface IFiscalPeriodsCommand
     {
         bool SaveChanges();
         void AddFiscalPeriod(FiscalPeriod fiscalId);

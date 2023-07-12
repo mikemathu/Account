@@ -1,6 +1,6 @@
 ﻿namespace Accounts.Services.Command
 {
-    public interface ISchemesItemsCommand
+    public interface ISchemeItemsCommand
     {
     }
 }
