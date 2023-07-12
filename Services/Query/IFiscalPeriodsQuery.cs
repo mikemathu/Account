@@ -1,6 +1,6 @@
 ﻿using Accounts.Models.VM;
 
-namespace Account_Module.Services.Query
+namespace Accounts.Services.Query
 {
     public interface IFiscalPeriodsQuery
     {

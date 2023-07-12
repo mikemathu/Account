@@ -3,7 +3,6 @@ using Accounts.Dtos.Banks;
 using Accounts.Models;
 using Accounts.Models.Banks;
 using Accounts.Dtos.Payment_Modes;
-using Accounts.Models;
 using Accounts.Models.Payment_Modes;
 using Accounts.Models.VM;
 using AutoMapper;

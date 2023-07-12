@@ -1,16 +1,11 @@
-﻿using Account_Module.Services.Command;
-using Account_Module.Services.Query;
+﻿using Accounts.Services.Command;
 using Accounts.Services.Query;
 using Accounts.Dtos;
 using Accounts.Dtos.Payment_Modes;
 using Accounts.Models;
 using Accounts.Models.Payment_Modes;
-using Accounts.Models.VM;
-using Accounts.Services.Command;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
-using System.Diagnostics;
 using System.Net;
 
 namespace Accounts.Controllers

@@ -1,13 +1,9 @@
-using Account_Module.Repositories.Command;
-using Account_Module.Repositories.Query;
-using Account_Module.Services.Command;
-using Account_Module.Services.Query;
-using Accounts.Data;
 using Accounts.Repositories.Command;
-using Accounts.Repositories.CommandRepo;
 using Accounts.Repositories.Query;
 using Accounts.Services.Command;
 using Accounts.Services.Query;
+using Accounts.Data;
+using Accounts.Repositories.CommandRepo;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;

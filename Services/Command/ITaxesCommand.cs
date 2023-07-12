@@ -1,4 +1,4 @@
-﻿namespace Account_Module.Services.Command
+﻿namespace Accounts.Services.Command
 {
     public interface ITaxesCommand
     {

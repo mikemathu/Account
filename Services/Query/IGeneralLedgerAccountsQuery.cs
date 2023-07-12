@@ -1,7 +1,7 @@
 ﻿using Accounts.Models;
 using Accounts.Models.Payment_Modes;
 
-namespace Account_Module.Services.Query
+namespace Accounts.Services.Query
 {
     public interface IGeneralLedgerAccountsQuery 
     {

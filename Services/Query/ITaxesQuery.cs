@@ -1,6 +1,6 @@
 ﻿using Accounts.Models;
 
-namespace Account_Module.Services.Query
+namespace Accounts.Services.Query
 {
     public interface ITaxesQuery
     {

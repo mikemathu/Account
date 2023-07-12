@@ -1,8 +1,8 @@
-﻿using Account_Module.Services.Query;
+﻿using Accounts.Services.Query;
 using Accounts.Models.VM;
 using Npgsql;
 
-namespace Account_Module.Repositories.Query
+namespace Accounts.Repositories.Query
 {
     public class FiscalPeriodsQueryRepo : IFiscalPeriodsQuery
     {

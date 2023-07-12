@@ -1,6 +1,6 @@
-﻿using Account_Module.Services.Command;
+﻿using Accounts.Services.Command;
 
-namespace Account_Module.Repositories.Command
+namespace Accounts.Repositories.Command
 {
     public class TaxesCommandRepo : ITaxesCommand
     {
