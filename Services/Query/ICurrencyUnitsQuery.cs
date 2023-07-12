@@ -1,6 +1,7 @@
 ﻿namespace Accounts.Services.Query
 {
-    public interface ICurrencyUnitsCommand
+    public interface ICurrencyUnitsQuery
     {
+
     }
 }

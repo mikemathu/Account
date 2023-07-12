@@ -2,7 +2,7 @@
 
 namespace Account_Module.Services.Query
 {
-    public interface IFiscalPeriods
+    public interface IFiscalPeriodsQuery
     {
 
         Task<IEnumerable<FiscalPeriodVM>> GetFiscalPeriods();

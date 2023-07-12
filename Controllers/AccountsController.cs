@@ -1,5 +1,6 @@
 ﻿using Account_Module.Services.Command;
 using Account_Module.Services.Query;
+using Accounts.Services.Query;
 using Accounts.Dtos;
 using Accounts.Dtos.Payment_Modes;
 using Accounts.Models;
@@ -16,28 +17,132 @@ namespace Accounts.Controllers
 {
     public class AccountsController : Controller
     {
-        private readonly IFiscalPeriods _fiscalperiodRepository;
-        private readonly IGeneralLedgerAccountsCommand _generalLedgerAccountsCommand;
-        private readonly IGeneralLedgerAccountsQuery _generalLedgerAccountsQuery;
-        private readonly ITaxesCommand _taxesCommand;
-        private readonly ITaxesQuery _taxesQuery;
         private readonly IMapper _mapper;
 
+        //Queries
+        private readonly IAssetManagementQuery _assetManagementQuery;
+        private readonly IBankDepositsQuery _bankDepositsQuery;
+        private readonly IBankReconciliationQuery _bankReconciliationQuery;
+        private readonly IBanksQuery _banksQuery;
+        private readonly IBudgetingQuery _budgetingQuery;
+        private readonly ICapitationsQuery _capitationsQuery;
+        private readonly ICashierShiftsQuery _cashierShiftsQuery;
+        private readonly ICashTransfersQuery _cashTransfersQuery;
+        private readonly IChequesQuery _chequesQuery;
+        private readonly ICurrencyUnitsQuery _currencyUnitsQuery;
+        private readonly IFiscalPeriodsQuery _fiscalPeriodsQuery;
+        private readonly IGeneralLedgerAccountsQuery _generalLedgerAccountsQuery;
+        private readonly IJournalVouchersQuery _journalVouchersQuery;
+        private readonly IOpeningBalancesQuery _openingBalancesQuery;
+        private readonly IPaymentModesQuery _paymentModesQuery;
+        private readonly ISchemesItemsQuery _schemesItemsQuery;
+        private readonly ISchemesQuery _schemesQuery;
+        private readonly ITaxesQuery _taxesQuery;
+
+        //Commands
+        private readonly IAssetManagementCommand _assetManagementCommand;
+        private readonly IBankDepositsCommand _bankDepositsCommand;
+        private readonly IBankReconciliationCommand _bankReconciliationCommand;
+        private readonly IBanksCommand _banksCommand;
+        private readonly IBudgetingCommand _budgetingCommand;
+        private readonly ICapitationsCommand _capitationsCommand;
+        private readonly ICashierShiftsCommand _cashierShiftsCommand;
+        private readonly ICashTransfersCommand _cashTransfersCommand;
+        private readonly IChequesCommand _chequesCommand;
+        private readonly ICurrencyUnitsCommand _currencyUnitsCommand;
+        private readonly IFiscalPeriodsCommands _fiscalPeriodsCommands;
+        private readonly IGeneralLedgerAccountsCommand _generalLedgerAccountsCommand;
+        private readonly IJournalVouchersCommand _journalVouchersCommand;
+        private readonly IOpeningBalancesCommand _openingBalancesCommand;
+        private readonly IPaymentModesCommand _paymentModesCommand;
+        private readonly ISchemesCommand _schemesCommand;
+        private readonly ISchemesItemsCommand _schemesItemsCommand;
+        private readonly ITaxesCommand _taxesCommand;   
         public AccountsController(
-             IFiscalPeriods fiscalPeriodsRepository,
-             IGeneralLedgerAccountsQuery accounts,
+            IMapper mapper,
+            //Queries
+            IAssetManagementQuery assetManagementQuery,
+            IBankDepositsQuery bankDepositsQuery,
+            IBankReconciliationQuery bankReconciliationQuery,
+            IBanksQuery banksQuery,
+            IBudgetingQuery budgetingQuery,
+            ICapitationsQuery capitationsQuery,
+            ICashierShiftsQuery cashierShiftsQuery,
+            ICashTransfersQuery cashTransfersQuery,
+            IChequesQuery chequesQuery,
+            ICurrencyUnitsQuery currencyUnitsQuery,
+            IFiscalPeriodsQuery fiscalPeriodsQuery,
+            IGeneralLedgerAccountsQuery generalLedgerAccountsQuery,
+            IJournalVouchersQuery journalVouchersQuery,
+            IOpeningBalancesQuery openingBalancesQuery,
+            IPaymentModesQuery paymentModesQuery,
+            ISchemesItemsQuery schemesItemsQuery,
+            ISchemesQuery schemesQuery,
+            ITaxesQuery taxesQuery,
+             //Commands
+             IAssetManagementCommand assetManagementCommand,
+             IBankDepositsCommand bankDepositsCommand,
+             IBankReconciliationCommand bankReconciliationCommand,
+             IBanksCommand banksCommand,
+             IBudgetingCommand budgetingCommand,
+             ICapitationsCommand capitationsCommand,
+             ICashierShiftsCommand cashierShiftsCommand,
+             ICashTransfersCommand cashTransfersCommand,
+             IChequesCommand chequesCommand,
+             ICurrencyUnitsCommand currencyUnitsCommand,
+             IFiscalPeriodsCommands fiscalPeriodsCommands,
              IGeneralLedgerAccountsCommand generalLedgerAccountsCommand,
-            IMapper mapper)
+             IJournalVouchersCommand journalVouchersCommand,
+             IOpeningBalancesCommand openingBalancesCommand,
+             IPaymentModesCommand paymentModesCommand,
+             ISchemesCommand schemesCommand,
+             ISchemesItemsCommand schemesItemsCommand,
+             ITaxesCommand taxesCommand)
         {
-            _fiscalperiodRepository = fiscalPeriodsRepository;
-            _generalLedgerAccountsQuery = accounts;
             _mapper = mapper;
+            //Queries
+            _assetManagementQuery = assetManagementQuery;
+            _bankDepositsQuery = bankDepositsQuery;
+            _bankReconciliationQuery = bankReconciliationQuery;
+            _banksQuery = banksQuery;
+            _budgetingQuery = budgetingQuery;
+            _capitationsQuery = capitationsQuery;
+            _cashierShiftsQuery = cashierShiftsQuery;
+            _cashTransfersQuery = cashTransfersQuery;
+            _chequesQuery = chequesQuery;
+            _currencyUnitsQuery = currencyUnitsQuery;
+            _fiscalPeriodsQuery = fiscalPeriodsQuery;
+            _generalLedgerAccountsQuery = generalLedgerAccountsQuery;
+            _journalVouchersQuery = journalVouchersQuery;
+            _openingBalancesQuery = openingBalancesQuery;
+            _paymentModesQuery = paymentModesQuery;
+            _schemesItemsQuery = schemesItemsQuery;
+            _schemesQuery = schemesQuery;
+            _taxesQuery = taxesQuery;
+            //Commands
+            _assetManagementCommand = assetManagementCommand;
+            _bankDepositsCommand = bankDepositsCommand;
+            _bankReconciliationCommand = bankReconciliationCommand;
+            _banksCommand = banksCommand;
+            _budgetingCommand = budgetingCommand;
+            _capitationsCommand = capitationsCommand;
+            _cashierShiftsCommand = cashierShiftsCommand;
+            _cashTransfersCommand = cashTransfersCommand;
+            _chequesCommand = chequesCommand;
+            _currencyUnitsCommand = currencyUnitsCommand;
+            _fiscalPeriodsCommands = fiscalPeriodsCommands;
             _generalLedgerAccountsCommand = generalLedgerAccountsCommand;
+            _journalVouchersCommand = journalVouchersCommand;
+            _openingBalancesCommand = openingBalancesCommand;
+            _paymentModesCommand = paymentModesCommand;
+            _schemesCommand = schemesCommand;
+            _schemesItemsCommand = schemesItemsCommand;
+            _taxesCommand = taxesCommand;
         }
-        /// <summary>
-        /// GeneralLedgerAccounts
-        /// </summary>
-        /// <returns></returns>
+
+        //Fiscal Periods
+       
+        //Ledger Accounts
         public IActionResult GeneralLedgerAccounts()
         {
             return View();
@@ -408,6 +513,7 @@ namespace Accounts.Controllers
         {
             return View();
         }
+       
 
 
 

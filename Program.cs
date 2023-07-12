@@ -29,8 +29,8 @@ builder.Services.AddControllersWithViews()
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-builder.Services.AddSingleton<IFiscalPeriods, FiscalQueryRepo>();
-builder.Services.AddScoped<IFiscalPeriodCommands, FiscalCommandRepo>();
+builder.Services.AddSingleton<IFiscalPeriodsQuery, FiscalPeriodQueryRepo>();
+builder.Services.AddScoped<IFiscalPeriodsCommands, FiscalPeriodCommandRepo>();
 
 //GeneralLedgerAccounts
 builder.Services.AddScoped<IGeneralLedgerAccountsCommand, GeneralLedgerAccountsCommandRepo>();

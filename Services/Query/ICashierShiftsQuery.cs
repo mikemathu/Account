@@ -1,6 +1,7 @@
 ﻿namespace Accounts.Services.Query
 {
-    public interface ICashierShiftsCommand
-    {
+    public interface ICashierShiftsQuery
+    { 
     }
+    
 }

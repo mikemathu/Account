@@ -1,6 +1,7 @@
 ﻿namespace Accounts.Services.Query
 {
-    public interface IJournalVouchersCommand
+    public interface IJournalVouchersQuery
     {
+
     }
 }

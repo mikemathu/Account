@@ -1,6 +1,6 @@
 ﻿namespace Accounts.Services.Query
 {
-    public interface IBankDepositsCommand
+    public interface IBankDepositsQuery
     {
     }
 }

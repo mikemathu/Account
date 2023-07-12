@@ -1,6 +1,6 @@
 ﻿namespace Accounts.Services.Query
 {
-    public interface ISchemesItemsCommand
+    public interface ISchemesItemsQuery
     {
     }
 }

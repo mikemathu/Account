@@ -5,11 +5,11 @@ using Accounts.Data;
 
 namespace Accounts.Repositories.Command
 {
-    public class FiscalCommandRepo : IFiscalPeriodCommands
+    public class FiscalPeriodCommandRepo : IFiscalPeriodsCommands
     {
         private readonly ApplicationDbContext _context;
 
-        public FiscalCommandRepo(ApplicationDbContext context)
+        public FiscalPeriodCommandRepo(ApplicationDbContext context)
         {
             _context = context;
         }     
