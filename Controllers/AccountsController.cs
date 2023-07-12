@@ -140,6 +140,11 @@ namespace Accounts.Controllers
         /// </summary>
         /// <returns></returns>
 
+        public IActionResult FiscalPeriods()
+        {
+            return View();
+        }
+
 
         /// <summary>
         /// FLedger Accounts
@@ -482,7 +487,7 @@ namespace Accounts.Controllers
         /// Cash Transfer
         /// </summary>
         /// <returns></returns>
-        public IActionResult CashTransfer()
+        public IActionResult CashTransfers()
         {
             return View();
         }
@@ -491,7 +496,7 @@ namespace Accounts.Controllers
         /// Bank Deposits
         /// </summary>
         /// <returns></returns>
-        public IActionResult BankDeposit()
+        public IActionResult BankDeposits()
         {
             return View();
         }
@@ -518,7 +523,7 @@ namespace Accounts.Controllers
         /// Currency Units
         /// </summary>
         /// <returns></returns>
-        public IActionResult CurrencyUnits()
+        public IActionResult CurrencyUnit()
         {
             return View();
         }

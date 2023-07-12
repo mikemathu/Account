@@ -1,0 +1,138 @@
+﻿@model Accounts.Models.VM.FiscalPeriodVM
+
+<div class=row>
+    <div class="panel panel-default">
+        <div class=panel-heading>
+            <h6 class=panel-title>Fiscal Period Details</h6>
+        </div>
+        <div class=panel-body>
+            <form asp-controller="Accounts" asp-action="FiscalPeriods" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class=row>
+                    <div class=col-sm-6>
+                        <input hidden type=number data-val=true data-val-required="The FiscalPeriodID field is required." id=FiscalPeriodID name=FiscalPeriodID>
+                        <input id=FiscalHash hidden>
+                        <div class=form-group>
+                            <label>
+                                <small>Period ID</small>
+                            </label>
+                            <input class="form-control input-sm" readonly type=number data-val=true data-val-required="The FiscalPeriodNo field is required." >                       </div>
+                        <div class=form-group>                           
+                            <label asp-for="OpenDate" class="control-label"></label>
+                            <input asp-for="OpenDate" class="form-control input-sm" />
+                            <span asp-validation-for="OpenDate" class="text-danger"></span>
+                        </div>
+
+                    </div>
+                    <div class=col-sm-6>
+                        <div class=form-group>                      
+                            
+                            <label asp-for="CloseDate" class="control-label"></label>
+                            <input value="8" asp-for="CloseDate" class="form-control input-sm" required data-val=true data-val-required="The Name field is required." id=Item_Name />
+                            <span asp-validation-for="CloseDate" class="text-danger"></span>
+                        </div>
+                        <div class=form-group>
+                            <div class=col-md-6>
+                                <div class=checkbox>
+                                    <label class=checkbox>
+                                        <input type=checkbox >Is Active
+                                    </label>@*
+                                    <label asp-for="IsActive" class="control-label"></label>
+                                    <input type="checkbox" id="IsActive" asp-for="IsActive" class="form-control input-sm" required data-val=true data-val-required="The Name field is required." />
+                                    <span asp-validation-for="IsActive" class="text-danger"></span>*@
+                                </div>
+                            </div>
+                            <div class=col-md-6>
+                                <div class=checkbox>
+                                    <label class=checkbox>
+                                        <input type=checkbox id=IsOpen disabled>Is Open
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    @*    <div id=update hidden>
+                            <div class="btn-group pull-right">
+                                <button id=btnupdateperiod class="btn btn-primary btn-sm ladda-button" data-style=expand-right data-size=s>Update</button>
+                                <a id=btnCreateNew class="btn btn-primary btn-sm">New</a>
+                            </div>
+                        </div>*@
+                        <div id=addperiod>
+                         @*   <button id=btnaddperiod class="btn btn-primary pull-right ladda-button" data-style=expand-right data-size=s>
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>*@
+
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+               @* <input name=__RequestVerificationToken type=hidden value=CfDJ8It5D1qqI4lBjCCzFnB6CeqHdF91dLenF2kxIqaDdi2MfHybFWc6sFRww7SwMRRlIHaywfCWGr31QUTkHrp7YlmYGkhwhSGpf8F6fhXPwKNpIYnh-SZRkbauJ5UYF1t3q4SY9lxfnEYcL_O8UCG_vRjC84Rz-JPDsyp12SbKoNAXTaBtv2SOS65PlXOWvWepbg>*@
+            </form>
+
+        </div>
+        <div class=panel-heading>
+            <h6 class=panel-title>View: Fiscal Periods</h6>
+        </div>
+        <div class=table-responsive id=no-more-tables>
+            <table class="col-md-12 table-striped table-condensed table-bordered cf compact" width=100% id=fiscalperiodstable>
+                <thead class=cf>
+                    <tr>
+                        <th>
+                            <strong>Fiscal Period No</strong>
+                        <th>
+                            <strong>Open Date</strong>
+                        <th>
+                            <strong>Close Date</strong>
+                        <th>
+                            <strong>Is Active</strong>
+                            </th>
+                        <th>
+                            <strong>Is Open</strong>
+                        </th>
+                        </thead>
+                <tbody>
+                    @foreach (var item in Model.FiscalPeriodsList)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OpenDate)
+                            </td>
+                             <td>
+                                @Html.DisplayFor(modelItem => item.CloseDate)
+                            </td>
+                             <td>
+                                @Html.DisplayFor(modelItem => item.IsActive)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsOpen)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tbody>
+            </table>
+        </div>
+        <div class=panel-footer>
+            <div class=row>
+                <div class=col-md-9>
+                    <label class=radio-inline>
+                        <input type=radio name=optPeriods value=1>Active
+                    </label>
+                    <label class=radio-inline>
+                        <input type=radio name=optPeriods value=2>Inactive
+                    </label>
+                    <label class=radio-inline>
+                        <input type=radio name=optPeriods value=3 checked>All
+                    </label>
+                </div>
+                <div class=col-md-3>
+                    <button id=btncloseperiod class="btn btn-primary btn-xs pull-right ladda-button" data-style=expand-right data-size=s>Close Period</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<div class=col-md-3></div>
+                            </div>
