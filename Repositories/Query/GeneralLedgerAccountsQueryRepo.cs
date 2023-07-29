@@ -34,7 +34,7 @@ namespace Accounts.Repositories.Query
             OpenConnection();
             List<AccountDetail> accounts = new List<AccountDetail>();
             var commandText = "SELECT A.\"AccountName\", A.\"AccountNo\", A.\"AccountID\", C.\"ClassName\" " +
-                              "FROM \"AccountsDetails\" A " +
+                              "FROM \"GeneralLedger_AccountsDetails\" A " +
                               "JOIN \"GeneralLedger_AccountClasses\" C ON A.\"AccountClassID\" = C.\"AccountClassID\"";
             using (NpgsqlCommand command = new NpgsqlCommand(commandText, _connection))
             {
@@ -66,7 +66,7 @@ namespace Accounts.Repositories.Query
             AccountDetail accountDetails = null;
 
             var commandText = $"SELECT \"AccountID\", \"AccountNo\", \"AccountName\", \"AccountClassID\"  " +
-                               $"FROM \"AccountsDetails\" " +
+                               $"FROM \"GeneralLedger_AccountsDetails\" " +
                                $"WHERE \"AccountID\" = {accountID} ";
             using (NpgsqlCommand command = new NpgsqlCommand(commandText, _connection))
             {
@@ -101,7 +101,7 @@ namespace Accounts.Repositories.Query
 
             var commandText = "SELECT A.\"CashFlowCategoryID\", A.\"Name\", C.\"TypeName\" " +
                            "FROM \"CashFlowCategories\" A " +
-                           "JOIN \"AccountTypes\" C ON A.\"AccountTypeID\" = C.\"AccountTypeID\"" +
+                           "JOIN \"GeneralLedger_AccountTypes\" C ON A.\"AccountTypeID\" = C.\"AccountTypeID\"" +
                             $"WHERE \"IsActive\" = 1 ";
             using (NpgsqlCommand command = new NpgsqlCommand(commandText, _connection))
             {
@@ -162,7 +162,7 @@ namespace Accounts.Repositories.Query
                                  $"FROM \"SubAccountsDetails\" " +
                                  $"WHERE \"AccountID\" = {accountID} ";*/
             var commandText = $"SELECT *  " +
-                               $"FROM \"SubAccountsDetails\" " +
+                               $"FROM \"GeneralLedger_SubAccountsDetails\" " +
                                $"WHERE \"AccountID\" = {accountID} ";
             using (NpgsqlCommand command = new NpgsqlCommand(commandText, _connection))
             {
@@ -196,8 +196,8 @@ namespace Accounts.Repositories.Query
             SubAccountDetail accountSubAccounts = null;
 
             var commandText = $"SELECT *  " +
-                               $"FROM \"SubAccountsDetails\" " +
-                               $"WHERE \"SubAccountID\" = {accountID} ";
+                               $"FROM \"GeneralLedger_SubAccountsDetails\" " +
+                               $"WHERE \"GeneralLedger_SubAccountID\" = {accountID} ";
             using (NpgsqlCommand command = new NpgsqlCommand(commandText, _connection))
             {
                 using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
@@ -230,8 +230,8 @@ namespace Accounts.Repositories.Query
             CashFlowCategory cashFlowCategoryDetails = null;
 
             var commandText = $"SELECT *  " +
-                               $"FROM \"CashFlowCategories\" " +
-                               $"WHERE \"CashFlowCategoryID\" = {cashFlowCategoryID} ";
+                               $"FROM \"GeneralLedger_CashFlowCategories\" " +
+                               $"WHERE \"GeneralLedger_CashFlowCategoryID\" = {cashFlowCategoryID} ";
             using (NpgsqlCommand command = new NpgsqlCommand(commandText, _connection))
             {
                 using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
@@ -263,7 +263,7 @@ namespace Accounts.Repositories.Query
                                   "JOIN \"GeneralLedger_AccountClasses\" C ON A.\"AccountClassID\" = C.\"AccountClassID\"";*/
 
             var commandText = "SELECT A.\"AccountID\", A.\"AccountNo\", A.\"AccountName\", C.\"ClassName\" " +
-                               "FROM \"AccountsDetails\" A " +
+                               "FROM \"GeneralLedger_AccountsDetails\" A " +
                                "JOIN \"GeneralLedger_AccountClasses\" C ON A.\"AccountClassID\" = C.\"AccountClassID\"" +
                                 $"WHERE A.\"AccountClassID\" = {accountClassID.AccountClassID}";
 
@@ -313,7 +313,7 @@ namespace Accounts.Repositories.Query
             List<PaymentMode> accounts = new List<PaymentMode>();
 
             var commandText = $"SELECT * " +
-                              $"FROM \"PaymentModes\" ";
+                              $"FROM \"PaymentModes_PaymentModes\" ";
             using (NpgsqlCommand command = new NpgsqlCommand(commandText, _connection))
             {
                 using (NpgsqlDataReader reader = await command.ExecuteReaderAsync())
@@ -360,7 +360,7 @@ namespace Accounts.Repositories.Query
             Bank bankDetails = null;
 
             var commandText = $"SELECT \"BankID\", \"Name\", \"BankCode\", \"AccountNo\",  \"Branch\",  \"BranchCode\"  " +
-                               $"FROM \"Banks\" " +
+                               $"FROM \"Banks_Banks\" " +
                                $"WHERE \"BankID\" = {bankID} ";
             using (NpgsqlCommand command = new NpgsqlCommand(commandText, _connection))
             {
